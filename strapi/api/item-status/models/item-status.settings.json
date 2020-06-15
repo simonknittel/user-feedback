@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "item_statuses",
+  "info": {
+    "name": "Item Status"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "items": {
+      "via": "status",
+      "collection": "item"
+    }
+  }
+}

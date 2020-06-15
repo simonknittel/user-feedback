@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_item_custom_fields_bugs",
+  "info": {
+    "name": "Bug",
+    "icon": "exclamation-circle"
+  },
+  "options": {},
+  "attributes": {
+    "Priority": {
+      "type": "enumeration",
+      "enum": [
+        "prio1",
+        "prio2",
+        "prio3"
+      ]
+    },
+    "Browser": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

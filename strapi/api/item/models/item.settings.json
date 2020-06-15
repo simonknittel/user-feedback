@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "items",
+  "info": {
+    "name": "Item"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "maxLength": 144
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "uploads": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "status": {
+      "model": "item-status",
+      "via": "items"
+    },
+    "type": {
+      "model": "item-type",
+      "via": "items"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "items",
+      "dominant": true
+    },
+    "customFields": {
+      "type": "dynamiczone",
+      "components": [
+        "item-custom-fields.priority"
+      ]
+    },
+    "comments": {
+      "via": "item",
+      "collection": "comment"
+    }
+  }
+}

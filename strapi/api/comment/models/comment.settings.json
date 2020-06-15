@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "name": "Comment"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "message": {
+      "type": "richtext",
+      "required": true
+    },
+    "parent": {
+      "model": "comment",
+      "via": "child"
+    },
+    "child": {
+      "model": "comment",
+      "via": "parent"
+    },
+    "item": {
+      "model": "item",
+      "via": "comments"
+    }
+  }
+}
