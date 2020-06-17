@@ -29,6 +29,11 @@ export default {
 html {
   font-family: sans-serif;
   font-size: 100%;
+
+  &.dark {
+    background-color: #222;
+    color: #ddd;
+  }
 }
 
 body {

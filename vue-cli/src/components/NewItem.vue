@@ -20,13 +20,33 @@ export default {
 
 <style lang="scss">
 .new-item {
+  overflow: hidden;
+
+  position: relative;
+
   padding: 2rem;
 
-  box-shadow: 5px 5px 10px 0 rgba(49, 0, 131, .2);
+  box-shadow: 2px 2px 10px 0 rgba(49, 0, 131, .1);
   border-radius: .5rem;
-  background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+  background-color: #fff;
 
-  color: #fff;
+  .dark & {
+    background-color: #222;
+    box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .2);
+  }
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+  }
 
   &__title {
     margin-top: 0;
@@ -49,9 +69,15 @@ export default {
 
     border-radius: .5rem;
     border: none;
+    background-color: #eee;
 
     font-size: 1rem;
     font-family: sans-serif;
+
+    .dark & {
+      background-color: #1e1e1e;
+      color: #ddd;
+    }
   }
 
   &__title-input {

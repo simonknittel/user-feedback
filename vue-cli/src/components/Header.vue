@@ -27,10 +27,16 @@
   //   background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
   // }
 
+  .dark & {
+    border-color: #333;
+  }
+
   &__inner {
     max-width: 100rem;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   &__title {
