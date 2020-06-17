@@ -1,14 +1,14 @@
 <template>
-  <form class="new-item">
-    <h2 class="new-item__title">New suggestion or bug</h2>
+  <form class="new-item-white">
+    <h2 class="new-item-white__title">New suggestion or bug</h2>
 
     <label for="new-item-title-input">Title</label>
-    <input class="new-item__title-input" type="text" name="title" id="new-item-title-input">
+    <input class="new-item-white__title-input" type="text" name="title" id="new-item-title-input">
 
     <label for="new-item-description-input">Description</label>
-    <textarea class="new-item__description-input" name="description" rows="7" id="new-item-description-input"></textarea>
+    <textarea class="new-item-white__description-input" name="description" rows="7" id="new-item-description-input"></textarea>
 
-    <button class="new-item__submit-button">Submit</button>
+    <button class="new-item-white__submit-button">Submit</button>
   </form>
 </template>
 
@@ -19,14 +19,29 @@ export default {
 </script>
 
 <style lang="scss">
-.new-item {
+.new-item-white {
+  overflow: hidden;
+
+  position: relative;
+
   padding: 2rem;
 
-  box-shadow: 5px 5px 10px 0 rgba(49, 0, 131, .2);
+  box-shadow: 2px 2px 10px 0 rgba(49, 0, 131, .1);
   border-radius: .5rem;
-  background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+  background-color: #fff;
 
-  color: #fff;
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+  }
 
   &__title {
     margin-top: 0;
@@ -49,6 +64,7 @@ export default {
 
     border-radius: .5rem;
     border: none;
+    background-color: #eee;
 
     font-size: 1rem;
     font-family: sans-serif;

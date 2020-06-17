@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <div class="sidebar">
-      <NewItem />
+      <!-- <NewItem /> -->
+
+      <NewItemWhite />
     </div>
 
     <main class="type-columns">
@@ -37,12 +39,14 @@
 
 <script>
 import gql from 'graphql-tag'
-import NewItem from '@/components/NewItem'
+// import NewItem from '@/components/NewItem'
+import NewItemWhite from '@/components/NewItemWhite'
 
 export default {
   name: 'Home',
   components: {
-    NewItem
+    // NewItem,
+    NewItemWhite
   },
   apollo: {
     itemTypes: gql`query {
@@ -70,7 +74,7 @@ export default {
 .home {
   display: grid;
   grid-template:
-    'sidebar main' min-content / 20rem auto;
+    'sidebar main' min-content / 25rem auto;
 
   max-width: 100rem;
   margin-left: auto;
