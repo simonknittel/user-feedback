@@ -49,8 +49,18 @@
       ]
     },
     "comments": {
-      "via": "item",
-      "collection": "comment"
+      "collection": "comment",
+      "via": "item"
+    },
+    "sticky": {
+      "type": "boolean",
+      "default": false
+    },
+    "upvotes": {
+      "type": "integer",
+      "min": 1,
+      "default": 1,
+      "required": true
     }
   }
 }

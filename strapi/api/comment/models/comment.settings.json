@@ -22,8 +22,8 @@
       "via": "parent"
     },
     "item": {
-      "model": "item",
-      "via": "comments"
+      "via": "comments",
+      "model": "item"
     }
   }
 }
