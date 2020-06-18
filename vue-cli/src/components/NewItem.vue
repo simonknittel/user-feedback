@@ -1,20 +1,82 @@
 <template>
-  <form class="new-item">
+  <form class="new-item" @submit="submit">
     <h2 class="new-item__title">New suggestion or bug</h2>
 
     <label for="new-item-title-input">Title</label>
-    <input class="new-item__title-input" type="text" name="title" id="new-item-title-input">
+    <input v-model="title" class="new-item__title-input" type="text" name="title" id="new-item-title-input">
 
     <label for="new-item-description-input">Description</label>
-    <textarea class="new-item__description-input" name="description" rows="7" id="new-item-description-input"></textarea>
+    <textarea v-model="description" class="new-item__description-input" name="description" rows="7" id="new-item-description-input"></textarea>
 
     <button class="new-item__submit-button">Submit</button>
   </form>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
-  name: 'NewItem'
+  name: 'NewItem',
+  data: function () {
+    return {
+      title: '',
+      description: ''
+    }
+  },
+  methods: {
+    submit: function (e) {
+      e.preventDefault()
+
+      this.$apollo.mutate({
+        mutation: gql`mutation ($input: createItemInput!) {
+          createItem(input: $input) {
+            item {
+              id
+            }
+          }
+        }`,
+        variables: {
+          input: {
+            data: {
+              title: this.title,
+              description: this.description
+            }
+          }
+        }
+      })
+        .then(() => {
+          // BUG: Won't get triggered????
+          this.$apollo.query({
+            query: gql`query {
+              itemTypes {
+                id
+                title
+                items {
+                  id
+                  title
+                  description
+                  sticky
+                  upvotes
+                  categories {
+                    id
+                    title
+                  }
+                }
+              }
+            }`
+          })
+            .then(response => {
+              this.$store.commit('updateItemTypes', response.data.itemTypes)
+            })
+
+          this.title = ''
+          this.description = ''
+        })
+        .catch(error => {
+          console.error('error', error)
+        })
+    }
+  }
 }
 </script>
 
@@ -32,7 +94,7 @@ export default {
 
   .dark & {
     background-color: #222;
-    box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .2);
+    box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
   }
 
   &::before {

@@ -2,9 +2,24 @@
   <header class="header">
     <div class="header__inner">
       <h1 class="header__title">User Feedback</h1>
+
+      <div class="header__right">
+        <button @click="toggleDarkMode">DARK</button>
+      </div>
     </div>
   </header>
 </template>
+
+<script>
+export default {
+  name: 'Header',
+  methods: {
+    toggleDarkMode: function () {
+      this.$store.commit('toggleDarkMode')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .header {
@@ -14,24 +29,14 @@
 
   border-bottom: 1px solid #ddd;
 
-  // &::before {
-  //   content: '';
-
-  //   position: absolute;
-  //   left: 0;
-  //   bottom: 0;
-
-  //   width: 100%;
-  //   height: 2px;
-
-  //   background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
-  // }
-
   .dark & {
     border-color: #333;
   }
 
   &__inner {
+    display: flex;
+  justify-content: space-between;
+
     max-width: 100rem;
     margin-left: auto;
     margin-right: auto;
@@ -45,6 +50,10 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
     line-height: 1;
+  }
+
+  &__right {
+
   }
 }
 </style>

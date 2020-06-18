@@ -13,6 +13,15 @@ export default {
   name: 'App',
   components: {
     Header
+  },
+  computed: {
+    darkMode: function () { return this.$store.state.darkMode }
+  },
+  watch: {
+    darkMode (newValue) {
+      if (newValue === true) document.documentElement.classList.add('dark')
+      else document.documentElement.classList.remove('dark')
+    }
   }
 }
 </script>

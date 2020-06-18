@@ -60,7 +60,7 @@
       "type": "integer",
       "min": 1,
       "default": 1,
-      "required": true
+      "required": false
     }
   }
 }

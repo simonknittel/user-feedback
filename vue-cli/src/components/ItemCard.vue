@@ -5,7 +5,7 @@
       'item-card--sticky': item.sticky
     }"
   >
-    <a href="#">
+    <a href="#" @click="click">
       <button class="item-card__upvote">A</button>
       <h3 class="item-card__title">{{ item.title }}</h3>
       <p class="item-card__content">{{ item.description }}</p>
@@ -26,6 +26,11 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    click: function () {
+      console.log('upvote!')
     }
   }
 }
@@ -58,7 +63,7 @@ export default {
       border-radius: .5rem;
 
       .dark & {
-        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .2);
+        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
       }
 
       &::before {
@@ -112,6 +117,10 @@ export default {
         background-color: #333;
         color: #444;
       }
+    }
+
+    &:active {
+      background-color: #ddd;
     }
   }
 
@@ -183,7 +192,7 @@ export default {
       background-color: #fff;
 
       .dark & {
-        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .2);
+        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
         background-color: #222;
       }
 

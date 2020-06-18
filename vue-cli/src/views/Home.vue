@@ -1,13 +1,12 @@
 <template>
   <div class="home">
     <div class="sidebar">
-
       <NewItem />
     </div>
 
     <main class="type-columns">
-      <div class="type-columns__column" v-for="type in itemTypes" :key="type.id">
-        <h2 v-if="itemTypes.length >= 2" class="type-columns__title">{{ type.title }}s</h2>
+      <div class="type-columns__column" v-for="type in $store.state.itemTypes" :key="type.id">
+        <h2 v-if="$store.state.itemTypes.length >= 2" class="type-columns__title">{{ type.title }}s</h2>
 
         <ul class="item-card-list" v-if="type.items.length > 0">
           <ItemCard v-for="item in type.items" :key="item.id" :item="item" />
@@ -28,24 +27,29 @@ export default {
     NewItem,
     ItemCard
   },
-  apollo: {
-    itemTypes: gql`query {
-      itemTypes {
-        id
-        title
-        items {
+  created () {
+    this.$apollo.query({
+      query: gql`query {
+        itemTypes {
           id
           title
-          description
-          sticky
-          upvotes
-          categories {
+          items {
             id
             title
+            description
+            sticky
+            upvotes
+            categories {
+              id
+              title
+            }
           }
         }
-      }
-    }`
+      }`
+    })
+      .then(response => {
+        this.$store.commit('updateItemTypes', response.data.itemTypes)
+      })
   }
 }
 </script>
