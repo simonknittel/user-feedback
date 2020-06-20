@@ -1,4 +1,11 @@
 $shadow--light: rgba(49, 0, 131, .2);
 $shadow--dark: rgba(0, 0, 0, .3);
 
-$gradient: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+$violet: hsl(262, 100%, 26%);
+$violet--light: hsl(262, 100%, 62%);
+$violet--lightest: hsl(262, 100%, 90%);
+
+$red: hsl(0, 100%, 60%);
+$red--light: hsla(0, 100%, 50%, .07);
+
+$gradient: linear-gradient(135deg, $violet--light 0%, $violet 100%);

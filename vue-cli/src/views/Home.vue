@@ -101,6 +101,7 @@ export default {
 
   &__title {
     margin-top: 0;
+    font-weight: 400;
   }
 }
 

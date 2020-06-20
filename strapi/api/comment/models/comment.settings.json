@@ -24,6 +24,15 @@
     "parent": {
       "model": "comment",
       "via": "children"
+    },
+    "sticky": {
+      "type": "boolean",
+      "default": false
+    },
+    "private": {
+      "type": "boolean",
+      "default": false,
+      "private": false
     }
   }
 }

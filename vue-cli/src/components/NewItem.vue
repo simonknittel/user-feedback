@@ -9,6 +9,7 @@
       type="text"
       name="title"
       id="new-item-title-input"
+      placeholder="Some descriptive title ..."
     >
 
     <label for="new-item-description-input">Description</label>
@@ -18,6 +19,7 @@
       name="description"
       rows="7"
       id="new-item-description-input"
+      placeholder="Further details ..."
     ></textarea>
 
     <div class="new-item__bottom-row">
@@ -136,7 +138,7 @@ export default {
     left: 0;
     top: 0;
 
-    width: 4px;
+    width: 2px;
     height: 100%;
 
     background: $gradient;

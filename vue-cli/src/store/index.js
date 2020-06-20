@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     darkMode: false,
-    homeItems: []
+    homeItems: [],
+    userIsAdmin: true,
+    allowNestedComments: true
   },
   mutations: {
     toggleDarkMode (state) {

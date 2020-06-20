@@ -1,10 +1,16 @@
 <template>
-  <li class="comment">
+  <li
+    :class="{
+      comment: true,
+      'comment--sticky': comment.sticky,
+      'comment--private': comment.private
+    }"
+  >
     <div class="comment__content">
       {{ comment.message }}
     </div>
 
-    <ul v-if="comment.children.length > 0">
+    <ul v-if="$store.state.allowNestedComments && comment.children.length > 0">
       <Comment
         v-for="child in comment.children"
         :key="child.id"
@@ -46,7 +52,14 @@ export default {
     margin-bottom: 1rem;
     padding: 2rem;
 
-    border-left: 1px solid #ddd;
+    border-left: 2px solid #ddd;
+  }
+
+  &--private {
+    .comment__content {
+      border-left-color: $red;
+      background: linear-gradient(180deg, rgba(255, 0, 0, .1) 0, rgba(255, 0, 0, 0) 7rem);
+    }
   }
 }
 </style>

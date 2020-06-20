@@ -1,22 +1,26 @@
 <template>
   <div class="item">
     <main>
-      <div v-if="data">
+      <Breadcrumb />
+
+      <div class="item__main-content" v-if="data">
         <div class="item__card">
           <Upvote />
           <h1 class="item__title">{{ data.item.title }}</h1>
           <div class="item__description">{{ data.item.description }}</div>
+
+          <Categories
+            v-if="data.item.categories.length > 0"
+            :categories="data.item.categories"
+          />
         </div>
 
         <Comments v-if="data.comments.length > 0" :allComments="data.comments" />
       </div>
     </main>
 
-    <aside class="item__sidebar">
-      <div class="item__sidebar__inner">
-        ID: {{ $route.params.id }}
-        <button>Edit title or description</button>
-      </div>
+    <aside>
+      <ItemViewSidebar :item="data.item" />
     </aside>
   </div>
 </template>
@@ -26,12 +30,18 @@ import gql from 'graphql-tag'
 
 import Upvote from '../components/Upvote'
 import Comments from '../components/Comments'
+import Categories from '../components/Categories'
+import Breadcrumb from '../components/Breadcrumb'
+import ItemViewSidebar from '../components/ItemViewSidebar'
 
 export default {
   name: 'Item',
   components: {
     Upvote,
-    Comments
+    Comments,
+    Categories,
+    Breadcrumb,
+    ItemViewSidebar
   },
   apollo: {
     data: {
@@ -40,6 +50,10 @@ export default {
           item (id: $id) {
             title
             description
+            categories {
+              id
+              title
+            }
           }
 
           comments (where: $where) {
@@ -47,6 +61,8 @@ export default {
             message
             parent { id }
             children { id }
+            private
+            sticky
           }
         }
       `,
@@ -89,6 +105,10 @@ export default {
 
   aside {
     grid-area: sidebar;
+  }
+
+  &__main-content {
+    margin-top: 1rem;
   }
 
   &__card {
@@ -140,36 +160,6 @@ export default {
     margin-bottom: 0;
 
     line-height: 1.5;
-  }
-
-  &__sidebar {
-    &__inner {
-      overflow: hidden;
-
-      position: relative;
-
-      padding: 2rem;
-
-      box-shadow: 2px 2px 10px 0 $shadow--light;
-      border-radius: .5rem;
-
-      .dark & {
-        box-shadow: 2px 2px 10px 0 $shadow--dark;
-      }
-
-      &::before {
-        content: '';
-
-        position: absolute;
-        left: 0;
-        top: 0;
-
-        width: 4px;
-        height: 100%;
-
-        background: $gradient;
-      }
-    }
   }
 }
 </style>

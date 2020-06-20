@@ -58,6 +58,29 @@ export default {
         border-radius: .5rem;
         border-left: none;
       }
+
+      &--private {
+        > .comment__content {
+          overflow: hidden;
+
+          position: relative;
+
+          background: linear-gradient(180deg, rgba(255, 0, 0, .1) 0, rgba(255, 0, 0, 0) 7rem);
+
+          &::before {
+            content: '';
+
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background: $red;
+          }
+        }
+      }
     }
   }
 }
