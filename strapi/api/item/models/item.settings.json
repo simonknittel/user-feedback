@@ -49,8 +49,8 @@
       ]
     },
     "comments": {
-      "collection": "comment",
-      "via": "item"
+      "via": "item",
+      "collection": "comment"
     },
     "sticky": {
       "type": "boolean",

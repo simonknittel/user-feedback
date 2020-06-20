@@ -3,12 +3,36 @@
     <h2 class="new-item__title">New suggestion or bug</h2>
 
     <label for="new-item-title-input">Title</label>
-    <input v-model="title" class="new-item__title-input" type="text" name="title" id="new-item-title-input">
+    <input
+      v-model="title"
+      class="new-item__title-input"
+      type="text"
+      name="title"
+      id="new-item-title-input"
+    >
 
     <label for="new-item-description-input">Description</label>
-    <textarea v-model="description" class="new-item__description-input" name="description" rows="7" id="new-item-description-input"></textarea>
+    <textarea
+      v-model="description"
+      class="new-item__description-input"
+      name="description"
+      rows="7"
+      id="new-item-description-input"
+    ></textarea>
 
-    <button class="new-item__submit-button">Submit</button>
+    <div class="new-item__bottom-row">
+      <select class="new-item__type-input" v-model="type">
+        <option
+          v-for="type in $store.state.homeItems"
+          :key="type.id"
+          :value="type.id"
+        >
+          {{ type.title }}
+        </option>
+      </select>
+
+      <button class="new-item__submit-button">Submit</button>
+    </div>
   </form>
 </template>
 
@@ -20,7 +44,8 @@ export default {
   data: function () {
     return {
       title: '',
-      description: ''
+      description: '',
+      type: 1 // TODO: Change to first availableItem type
     }
   },
   methods: {
@@ -39,18 +64,19 @@ export default {
           input: {
             data: {
               title: this.title,
-              description: this.description
+              description: this.description,
+              type: this.type
             }
           }
         }
       })
         .then(() => {
-          // BUG: Won't get triggered????
           this.$apollo.query({
             query: gql`query {
               itemTypes {
                 id
                 title
+                updated_at
                 items {
                   id
                   title
@@ -63,14 +89,20 @@ export default {
                   }
                 }
               }
-            }`
+            }`,
+            fetchPolicy: 'no-cache' // BUG: Doesn't work at the moment
           })
             .then(response => {
-              this.$store.commit('updateItemTypes', response.data.itemTypes)
+              this.$store.commit('updateHomeItems', response.data.itemTypes)
+            })
+            .catch(error => {
+              console.error('error', error)
             })
 
           this.title = ''
           this.description = ''
+
+          // TODO: Open item view with newly created item
         })
         .catch(error => {
           console.error('error', error)
@@ -81,6 +113,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../variables.scss';
+
 .new-item {
   overflow: hidden;
 
@@ -88,13 +122,11 @@ export default {
 
   padding: 2rem;
 
-  box-shadow: 2px 2px 10px 0 rgba(49, 0, 131, .1);
+  box-shadow: 2px 2px 10px 0 $shadow--light;
   border-radius: .5rem;
-  background-color: #fff;
 
   .dark & {
-    background-color: #222;
-    box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 10px 0 $shadow--dark;
   }
 
   &::before {
@@ -107,7 +139,7 @@ export default {
     width: 4px;
     height: 100%;
 
-    background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+    background: $gradient;
   }
 
   &__title {
@@ -125,8 +157,8 @@ export default {
   }
 
   &__title-input,
-  &__description-input {
-    width: 100%;
+  &__description-input,
+  &__type-input {
     padding: 1rem;
 
     border-radius: .5rem;
@@ -142,6 +174,11 @@ export default {
     }
   }
 
+  &__title-input,
+  &__description-input {
+    width: 100%;
+  }
+
   &__title-input {
 
   }
@@ -151,11 +188,19 @@ export default {
     vertical-align: middle;
   }
 
+  &__bottom-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__type-input {
+    margin-top: 1rem;
+  }
+
   &__submit-button {
     cursor: pointer;
     display: block;
 
-    margin-left: auto;
     margin-top: 1rem;
     padding: 1rem 2rem;
 

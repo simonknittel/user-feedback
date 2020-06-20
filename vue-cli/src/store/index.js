@@ -6,15 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     darkMode: false,
-    itemTypes: [],
-    items: []
+    homeItems: []
   },
   mutations: {
     toggleDarkMode (state) {
       state.darkMode = !state.darkMode
     },
-    updateItemTypes (state, payload) {
-      state.itemTypes = payload
+    updateHomeItems (state, payload) {
+      state.homeItems = payload
     }
   },
   actions: {

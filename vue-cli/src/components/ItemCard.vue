@@ -5,47 +5,45 @@
       'item-card--sticky': item.sticky
     }"
   >
-    <a href="#" @click="click">
-      <button class="item-card__upvote">A</button>
+    <router-link :to="'/item/' + item.id">
+      <Upvote />
       <h3 class="item-card__title">{{ item.title }}</h3>
       <p class="item-card__content">{{ item.description }}</p>
 
       <ul class="item-card__categories" v-if="item.categories">
-        <li class="item-card__category" v-for="category in item.categories" :key="category.id">
+        <li
+          class="item-card__category"
+          v-for="category in item.categories"
+          :key="category.id"
+        >
           <a href="#">{{ category.title }}</a>
         </li>
       </ul>
-    </a>
+    </router-link>
   </li>
 </template>
 
 <script>
+import Upvote from './Upvote'
+
 export default {
   name: 'ItemCard',
+  components: {
+    Upvote
+  },
   props: {
     item: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    click: function () {
-      console.log('upvote!')
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '../variables.scss';
+
 .item-card {
-  margin-top: 1rem;
-
-  &:first-of-type {
-    > a {
-      margin-top: 0;
-    }
-  }
-
   > a {
     display: block;
     position: relative;
@@ -59,11 +57,11 @@ export default {
 
     &:hover {
       overflow: hidden;
-      box-shadow: 2px 2px 10px 0 rgba(49, 0, 131, .1);
+      box-shadow: 2px 2px 10px 0 $shadow--light;
       border-radius: .5rem;
 
       .dark & {
-        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
+        box-shadow: 2px 2px 10px 0 $shadow--dark;
       }
 
       &::before {
@@ -76,7 +74,7 @@ export default {
         width: 100%;
         height: 2px;
 
-        background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+        background: $gradient;
       }
 
       .item-card__content {
@@ -86,41 +84,6 @@ export default {
           color: #ccc;
         }
       }
-    }
-  }
-
-  &__upvote {
-    cursor: pointer;
-
-    position: absolute;
-    left: 2rem;
-    top: 2rem;
-
-    width: 3rem;
-    height: 3rem;
-
-    border: 2px solid #ddd;
-    border-radius: .5rem;
-    background-color: transparent;
-
-    transition: background-color .1s;
-
-    .dark & {
-      border-color: #333;
-      color: #333;
-    }
-
-    &:hover {
-      background-color: #eee;
-
-      .dark & {
-        background-color: #333;
-        color: #444;
-      }
-    }
-
-    &:active {
-      background-color: #ddd;
     }
   }
 
@@ -187,13 +150,11 @@ export default {
 
     > a {
       overflow: hidden;
-      box-shadow: 2px 2px 10px 0 rgba(49, 0, 131, .1);
+      box-shadow: 2px 2px 10px 0 $shadow--light;
       border-radius: .5rem;
-      background-color: #fff;
 
       .dark & {
-        box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, .3);
-        background-color: #222;
+        box-shadow: 2px 2px 10px 0 $shadow--dark;
       }
 
       &::before {
@@ -206,7 +167,7 @@ export default {
         width: 100%;
         height: 2px;
 
-        background: linear-gradient(135deg, rgba(133,60,255,1) 0%, rgba(49,0,131,1) 100%);
+        background: $gradient;
       }
 
       .item-card__content {

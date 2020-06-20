@@ -13,17 +13,17 @@
       "type": "richtext",
       "required": true
     },
-    "parent": {
-      "model": "comment",
-      "via": "child"
+    "item": {
+      "model": "item",
+      "via": "comments"
     },
-    "child": {
-      "model": "comment",
+    "children": {
+      "collection": "comment",
       "via": "parent"
     },
-    "item": {
-      "via": "comments",
-      "model": "item"
+    "parent": {
+      "model": "comment",
+      "via": "children"
     }
   }
 }

@@ -1,7 +1,11 @@
 <template>
   <header class="header">
     <div class="header__inner">
-      <h1 class="header__title">User Feedback</h1>
+      <h1 class="header__title">
+        <router-link to="/">
+          User Feedback
+        </router-link>
+      </h1>
 
       <div class="header__right">
         <button @click="toggleDarkMode">DARK</button>
@@ -50,6 +54,11 @@ export default {
     padding-top: 2rem;
     padding-bottom: 2rem;
     line-height: 1;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   &__right {
