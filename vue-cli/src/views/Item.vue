@@ -63,6 +63,7 @@ export default {
             children { id }
             private
             sticky
+            created_at
           }
         }
       `,

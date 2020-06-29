@@ -40,7 +40,7 @@ html {
   font-size: 100%;
 
   &.dark {
-    background-color: #222;
+    background-color: hsla(235, 5%, 25%, 1);
     color: #ddd;
   }
 }

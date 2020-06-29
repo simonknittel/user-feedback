@@ -2,7 +2,11 @@
   <div class="comments">
     <h2 class="comments__title">Comments</h2>
 
-    <ul class="comments">
+    <NewComment />
+
+    <DisplayOptionsComments />
+
+    <ul class="comments__list">
       <Comment
         v-for="comment in allComments.filter(comment => !comment.parent)"
         :key="comment.id"
@@ -14,12 +18,16 @@
 </template>
 
 <script>
+import NewComment from './NewComment'
 import Comment from './Comment'
+import DisplayOptionsComments from './DisplayOptionsComments'
 
 export default {
   name: 'Comments',
   components: {
-    Comment
+    NewComment,
+    Comment,
+    DisplayOptionsComments
   },
   props: {
     allComments: {
@@ -40,9 +48,9 @@ export default {
     margin-bottom: 0;
   }
 
-  > ul {
+  &__list {
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 0;
     margin-bottom: 0;
     padding-left: 0;
 
@@ -57,6 +65,10 @@ export default {
         box-shadow: 2px 2px 10px 0 $shadow--light;
         border-radius: .5rem;
         border-left: none;
+
+        .dark & {
+          box-shadow: 2px 2px 10px 0 $shadow--dark;
+        }
       }
 
       &--private {

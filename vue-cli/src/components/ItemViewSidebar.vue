@@ -1,11 +1,27 @@
 <template>
   <div class="item__sidebar">
-    ID: {{ $route.params.id }}
+    <dl>
+      <dt>Submitted by</dt>
+      <dd>Simon</dd>
+
+      <dt>Created at</dt>
+      <dd>12th June 2020</dd>
+
+      <dt>Updated at</dt>
+      <dd>3 days ago</dd>
+
+      <dt>ID</dt>
+      <dd>{{ $route.params.id }}</dd>
+    </dl>
+
+    <!-- TODO: Add icon (pencil) -->
     <button class="item__sidebar__link">Edit title, description or categories</button>
 
     <div v-if="$store.state.userIsAdmin" class="item__sidebar__admin">
+      <!-- TODO: Add icon (warning sign) -->
       <span class="item__sidebar__admin__title">Admin area</span>
 
+      <!-- TODO: Add icon (trash can) -->
       <button class="item__sidebar__link">Delete permanently</button>
     </div>
   </div>
@@ -51,6 +67,28 @@ export default {
     height: 100%;
 
     background: $gradient;
+  }
+
+  dl {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  dt {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    text-transform: uppercase;
+    font-size: .9rem;
+    color: #777;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  dd {
+    margin-left: 0;
   }
 
   &__link {

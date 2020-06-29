@@ -156,6 +156,7 @@ export default {
     margin-bottom: .5rem;
     text-transform: uppercase;
     font-size: .9rem;
+    color: #777;
   }
 
   &__title-input,
