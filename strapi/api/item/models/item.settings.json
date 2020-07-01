@@ -49,8 +49,8 @@
       ]
     },
     "comments": {
-      "via": "item",
-      "collection": "comment"
+      "collection": "comment",
+      "via": "item"
     },
     "sticky": {
       "type": "boolean",
@@ -61,6 +61,11 @@
       "min": 1,
       "default": 1,
       "required": false
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "items"
     }
   }
 }

@@ -20,7 +20,7 @@
     </main>
 
     <aside>
-      <ItemViewSidebar :item="data.item" />
+      <ItemViewSidebar v-if="data" :item="data.item" />
     </aside>
   </div>
 </template>

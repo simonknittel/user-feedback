@@ -8,7 +8,8 @@ export default new Vuex.Store({
     darkMode: false,
     homeItems: [],
     userIsAdmin: true,
-    allowNestedComments: true
+    allowNestedComments: true,
+    commentsOrder: 'newest'
   },
   mutations: {
     toggleDarkMode (state) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     updateHomeItems (state, payload) {
       state.homeItems = payload
+    },
+    updateCommentsOrder (state, payload) {
+      state.commentsOrder = payload
     }
   },
   actions: {

@@ -36,6 +36,7 @@ export default {
 }
 
 html {
+  overflow-y: scroll;
   font-family: sans-serif;
   font-size: 100%;
 

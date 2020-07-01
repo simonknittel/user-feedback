@@ -10,6 +10,7 @@
       name="title"
       id="new-item-title-input"
       placeholder="Some descriptive title ..."
+      required
     >
 
     <label for="new-item-description-input">Description</label>
@@ -20,10 +21,11 @@
       rows="7"
       id="new-item-description-input"
       placeholder="Further details ..."
+      required
     ></textarea>
 
     <div class="new-item__bottom-row">
-      <select class="new-item__type-input" v-model="type">
+      <select class="new-item__type-input" v-model="type" required>
         <option
           v-for="type in $store.state.homeItems"
           :key="type.id"

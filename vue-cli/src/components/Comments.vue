@@ -8,7 +8,7 @@
 
     <ul class="comments__list">
       <Comment
-        v-for="comment in allComments.filter(comment => !comment.parent)"
+        v-for="comment in sortedRootComments"
         :key="comment.id"
         :comment="comment"
         :allComments="allComments"
@@ -33,6 +33,31 @@ export default {
     allComments: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    sortedRootComments: function () {
+      const comments = [...this.allComments].filter(comment => !comment.parent)
+
+      switch (this.$store.state.commentsOrder) {
+        case 'newest':
+          comments.sort((a, b) => {
+            return new Date(b.created_at) - new Date(a.created_at)
+          })
+          break
+
+        case 'oldest':
+          comments.sort((a, b) => {
+            return new Date(a.created_at) - new Date(b.created_at)
+          })
+          break
+
+        case 'last_activity':
+          // TODO: Implement last_activity
+          break
+      }
+
+      return comments
     }
   }
 }

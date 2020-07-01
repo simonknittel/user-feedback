@@ -4,9 +4,10 @@
       Display
 
       <div class="display-options-comments__order__select-container">
-        <select @change="change" v-if="order">
+        <select v-model="commentsOrder">
           <option value="newest">newest first</option>
           <option value="oldest">oldest first</option>
+          <option value="last_activity">last activity first</option>
         </select>
       </div>
     </div>
@@ -16,14 +17,10 @@
 <script>
 export default {
   name: 'DisplayOptionsComments',
-  data: function () {
-    return {
-      order: 'newest'
-    }
-  },
-  methods: {
-    change: function (e) {
-      console.log('order changed')
+  computed: {
+    commentsOrder: {
+      get () { return this.$store.state.commentsOrder },
+      set (value) { this.$store.commit('updateCommentsOrder', value) }
     }
   }
 }

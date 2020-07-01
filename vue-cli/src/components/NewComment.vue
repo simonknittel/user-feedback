@@ -7,12 +7,15 @@
       name="content"
       id="new_comment"
       rows="4"
+      required
     ></textarea>
     <button class="new-comment__submit-button">Submit</button>
   </form>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
   name: 'NewComment',
   data: function () {
@@ -24,9 +27,31 @@ export default {
     submit: function (e) {
       e.preventDefault()
 
-      // TODO: Send comment to server
+      this.$apollo.mutate({
+        mutation: gql`mutation ($input: createCommentInput!) {
+          createComment(input: $input) {
+            comment {
+              id
+            }
+          }
+        }`,
+        variables: {
+          input: {
+            data: {
+              item: this.$route.params.id,
+              message: this.content
+            }
+          }
+        }
+      })
+        .then(() => {
+          // TODO: Refresh comments
 
-      this.content = ''
+          this.content = ''
+        })
+        .catch(error => {
+          console.error('error', error)
+        })
     }
   }
 }
