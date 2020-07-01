@@ -74,39 +74,11 @@ export default {
           }
         }
       })
-        .then(() => {
-          this.$apollo.query({
-            query: gql`query {
-              itemTypes {
-                id
-                title
-                updated_at
-                items {
-                  id
-                  title
-                  description
-                  sticky
-                  upvotes
-                  categories {
-                    id
-                    title
-                  }
-                }
-              }
-            }`,
-            fetchPolicy: 'no-cache' // BUG: Doesn't work at the moment
-          })
-            .then(response => {
-              this.$store.commit('updateHomeItems', response.data.itemTypes)
-            })
-            .catch(error => {
-              console.error('error', error)
-            })
-
+        .then(createItemResponse => {
           this.title = ''
           this.description = ''
 
-          // TODO: Open item view with newly created item
+          this.$router.push({ name: 'Item', params: { id: createItemResponse.data.createItem.item.id } })
         })
         .catch(error => {
           console.error('error', error)

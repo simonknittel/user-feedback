@@ -22,18 +22,48 @@
       <span class="item__sidebar__admin__title">Admin area</span>
 
       <!-- TODO: Add icon (trash can) -->
-      <button class="item__sidebar__link">Delete permanently</button>
+      <button class="item__sidebar__link" @click="deleteItem">Delete permanently</button>
     </div>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
   name: 'ItemViewSidebar',
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    deleteItem: function (e) {
+      e.preventDefault()
+
+      this.$apollo.mutate({
+        mutation: gql`mutation ($input: deleteItemInput!) {
+          deleteItem(input: $input) {
+            item {
+              id
+            }
+          }
+        }`,
+        variables: {
+          input: {
+            where: {
+              id: this.$route.params.id
+            }
+          }
+        }
+      })
+        .then(() => {
+          this.$router.push({ name: 'Home' })
+        })
+        .catch(error => {
+          console.error('error', error)
+        })
     }
   }
 }

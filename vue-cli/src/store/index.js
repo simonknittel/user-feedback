@@ -9,7 +9,7 @@ export default new Vuex.Store({
     homeItems: [],
     userIsAdmin: true,
     allowNestedComments: true,
-    commentsOrder: 'newest'
+    commentsOrder: 'last_activity'
   },
   mutations: {
     toggleDarkMode (state) {

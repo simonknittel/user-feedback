@@ -53,7 +53,25 @@ export default {
           break
 
         case 'last_activity':
-          // TODO: Implement last_activity
+          comments.sort((a, b) => {
+            let aCreatedAt = new Date(a.created_at)
+            for (const comment of this.allComments) {
+              if (!comment.parent || comment.parent.id !== a.id) continue
+
+              const date = new Date(comment.created_at)
+              if (date > aCreatedAt) aCreatedAt = date
+            }
+
+            let bCreatedAt = new Date(b.created_at)
+            for (const comment of this.allComments) {
+              if (!comment.parent || comment.parent.id !== b.id) continue
+
+              const date = new Date(comment.created_at)
+              if (date > bCreatedAt) bCreatedAt = date
+            }
+
+            return bCreatedAt - aCreatedAt
+          })
           break
       }
 
