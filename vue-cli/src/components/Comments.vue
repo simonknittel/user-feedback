@@ -4,9 +4,9 @@
 
     <NewComment />
 
-    <DisplayOptionsComments />
+    <DisplayOptionsComments v-if="sortedRootComments.length > 0" />
 
-    <ul class="comments__list">
+    <ul class="comments__list" v-if="sortedRootComments.length > 0">
       <Comment
         v-for="comment in sortedRootComments"
         :key="comment.id"
@@ -14,6 +14,8 @@
         :allComments="allComments"
       />
     </ul>
+
+    <small v-if="sortedRootComments.length === 0">No comments yet.</small>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header />
+    <Login />
 
     <router-view/>
   </div>
@@ -8,11 +9,13 @@
 
 <script>
 import Header from '@/components/Header'
+import Login from '@/components/Login'
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Login
   },
   computed: {
     darkMode: function () { return this.$store.state.darkMode }
@@ -22,6 +25,18 @@ export default {
       if (newValue === true) document.documentElement.classList.add('dark')
       else document.documentElement.classList.remove('dark')
     }
+  },
+  created: function () {
+    fetch('http://localhost:1337/users/me', {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('jwt')
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.id) return
+        this.$store.commit('updateUser', data)
+      })
   }
 }
 </script>

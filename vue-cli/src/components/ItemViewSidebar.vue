@@ -17,7 +17,10 @@
     <!-- TODO: Add icon (pencil) -->
     <button class="item__sidebar__link">Edit title, description or categories</button>
 
-    <div v-if="$store.state.userIsAdmin" class="item__sidebar__admin">
+    <div
+      v-if="$store.state.user !== null && $store.state.user.role.type === 'moderator'"
+      class="item__sidebar__admin"
+    >
       <!-- TODO: Add icon (warning sign) -->
       <span class="item__sidebar__admin__title">Admin area</span>
 

@@ -15,7 +15,7 @@
           />
         </div>
 
-        <Comments v-if="data.comments.length > 0" :allComments="data.comments" />
+        <Comments :allComments="data.comments" />
       </div>
     </main>
 

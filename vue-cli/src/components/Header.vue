@@ -9,6 +9,9 @@
 
       <div class="header__right">
         <button @click="toggleDarkMode">DARK</button>
+
+        <button v-if="$store.state.user === null" @click="showLogin">Login</button>
+        <button v-if="$store.state.user !== null" @click="logout">Log out</button>
       </div>
     </div>
   </header>
@@ -20,6 +23,16 @@ export default {
   methods: {
     toggleDarkMode: function () {
       this.$store.commit('toggleDarkMode')
+    },
+
+    showLogin (e) {
+      e.preventDefault()
+      this.$store.commit('toggleLogin', true)
+    },
+
+    logout (e) {
+      e.preventDefault()
+      this.$store.commit('logout')
     }
   }
 }
