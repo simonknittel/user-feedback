@@ -1,5 +1,15 @@
 <template>
-  <button @click="click" class="upvote">A</button>
+  <button
+    @click="click"
+    :class="{
+      'upvote': true,
+      'upvote--active': active,
+    }"
+    :title="active ? 'Click to remove your upvote' : 'Click to upvote'"
+  >
+    <span class="upvote__arrow"></span>
+    <span class="upvote__count">{{ upvoteCount }}</span>
+  </button>
 </template>
 
 <script>
@@ -7,7 +17,7 @@ import gql from 'graphql-tag'
 
 export default {
   name: 'Upvote',
-  props: ['itemId'],
+  props: ['itemId', 'upvoteCount', 'active'],
   methods: {
     click (e) {
       e.preventDefault()
@@ -37,6 +47,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../variables.scss';
+
 .upvote {
   cursor: pointer;
 
@@ -44,7 +56,7 @@ export default {
   left: 2rem;
   top: 2rem;
 
-  width: 3rem;
+  width: 2.5rem;
   height: 3rem;
 
   border: 1px solid #ddd;
@@ -69,6 +81,35 @@ export default {
 
   &:active {
     background-color: #ddd;
+  }
+
+  &__arrow {
+    display: inline-block;
+
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+
+    border-bottom: 8px solid #555;
+  }
+
+  &__count {
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--active {
+    .upvote__arrow {
+      border-bottom-color: $violet--light;
+    }
   }
 }
 </style>

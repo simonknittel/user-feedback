@@ -131,10 +131,10 @@ export default {
 
   dt {
     display: block;
-    margin-top: 1rem;
+    margin-top: 2rem;
     margin-bottom: .5rem;
     text-transform: uppercase;
-    font-size: .9rem;
+    font-size: .8rem;
     color: #777;
 
     &:first-of-type {

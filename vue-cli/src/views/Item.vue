@@ -5,7 +5,15 @@
 
       <div class="item__main-content" v-if="data">
         <div class="item__card">
-          <Upvote :itemId="data.item.id" />
+          <Upvote
+            :itemId="data.item.id"
+            :upvoteCount="data.item.upvotes.length"
+            :active="
+              $store.state.user !== null
+              && $store.state.user.upvotedItems !== null
+              && $store.state.user.upvotedItems.includes(data.item.id) ? true : false
+            "
+          />
           <h1 class="item__title">{{ data.item.title }}</h1>
           <div class="item__description">{{ data.item.description }}</div>
 
@@ -131,7 +139,7 @@ export default {
     overflow: hidden;
 
     position: relative;
-    padding: 2rem 2rem 2rem 6rem;
+    padding: 2rem 2rem 2rem 5.5rem;
 
     box-shadow: 2px 2px 10px 0 $shadow--light;
     border-radius: .5rem;

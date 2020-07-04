@@ -92,6 +92,7 @@ export default {
   margin-top: 2rem;
 
   &__title {
+    margin-top: 0;
     margin-bottom: 0;
   }
 
@@ -102,7 +103,7 @@ export default {
     padding-left: 0;
 
     > .comment {
-      margin-top: 2rem;
+      margin-top: 1rem;
 
       &:first-of-type {
         margin-top: 0;

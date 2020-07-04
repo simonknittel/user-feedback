@@ -13,6 +13,7 @@ export default {
   color: #777;
   text-decoration: none;
   text-transform: uppercase;
+  font-size: .9rem;
 
   &:hover {
     text-decoration: underline;

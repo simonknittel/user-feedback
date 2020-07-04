@@ -2,9 +2,9 @@
   <form class="new-comment" @submit="submit">
     <label class="new-comment__title" for="new_comment">New comment</label>
     <textarea
-      v-model="content"
+      v-model="message"
       class="new-comment__input"
-      name="content"
+      name="message"
       id="new_comment"
       rows="4"
       required
@@ -20,7 +20,7 @@ export default {
   name: 'NewComment',
   data: function () {
     return {
-      content: ''
+      message: ''
     }
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
           input: {
             data: {
               item: this.$route.params.id,
-              message: this.content
+              message: this.message
             }
           }
         }
@@ -47,7 +47,7 @@ export default {
         .then(() => {
           // TODO: Refresh comments
 
-          this.content = ''
+          this.message = ''
         })
         .catch(error => {
           console.error('error', error)

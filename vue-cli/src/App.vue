@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 import Header from '@/components/Header'
 import Login from '@/components/Login'
 
@@ -26,17 +28,30 @@ export default {
       else document.documentElement.classList.remove('dark')
     }
   },
-  created: function () {
-    fetch('http://localhost:1337/users/me', {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('jwt')
+  apollo: {
+    data: {
+      query: gql`
+        query {
+          self {
+            id
+            username
+            email
+            role {
+              type
+            }
+            upvotedItems {
+              id
+            }
+          }
+        }
+      `,
+      update (data) {
+        if (!data.self.id) return
+        console.log(data.self.upvotedItems)
+        this.$store.commit('updateUser', data.self)
+        return { ...data }
       }
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (!data.id) return
-        this.$store.commit('updateUser', data)
-      })
+    }
   }
 }
 </script>

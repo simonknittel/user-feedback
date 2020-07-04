@@ -6,7 +6,15 @@
     }"
   >
     <router-link :to="'/item/' + item.id">
-      <Upvote :itemId="item.id" />
+      <Upvote
+        :itemId="item.id"
+        :upvoteCount="item.upvotes.length"
+        :active="
+          $store.state.user !== null
+          && $store.state.user.upvotedItems !== null
+          && $store.state.user.upvotedItems.includes(item.id) ? true : false
+        "
+      />
       <h3 class="item-card__title">{{ item.title }}</h3>
       <p class="item-card__content">{{ item.description }}</p>
 
@@ -44,7 +52,7 @@ export default {
   > a {
     display: block;
     position: relative;
-    padding: 2rem 2rem 2rem 6rem;
+    padding: 2rem 2rem 2rem 5.5rem;
     text-decoration: none;
     color: #222;
 

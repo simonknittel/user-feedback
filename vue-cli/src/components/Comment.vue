@@ -33,14 +33,36 @@
         :allComments="allComments"
       />
     </ul>
+
+    <button
+      v-if="comment.parent === null && showReply === false"
+      class="reply-button"
+      @click.prevent="showReply = true"
+    >New reply</button>
+
+    <NewReply
+      v-if="showReply === true"
+      :commentId="comment.id"
+      :hideReply="() => { showReply = false }"
+    />
   </li>
 </template>
 
 <script>
 import md5 from 'md5'
 
+import NewReply from '@/components/NewReply'
+
 export default {
   name: 'Comment',
+  components: {
+    NewReply
+  },
+  data () {
+    return {
+      showReply: false
+    }
+  },
   props: {
     comment: {
       type: Object,
@@ -103,7 +125,7 @@ export default {
 
     margin-top: 1rem;
     padding-left: 1rem;
-    font-size: .9rem;
+    font-size: .8rem;
     color: #777;
   }
 
@@ -112,6 +134,30 @@ export default {
       border-left-color: $red;
       background: linear-gradient(180deg, rgba(255, 0, 0, .1) 0, rgba(255, 0, 0, 0) 7rem);
     }
+  }
+}
+
+.reply-button {
+  vertical-align: middle;
+
+  margin-left: 2rem;
+  margin-top: -1rem;
+  margin-bottom: 0;
+  padding: 0;
+  padding-left: .5rem;
+
+  border-radius: 0;
+  border: none;
+  border-left: 2px solid #ddd;
+  background: none;
+
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-size: .9rem;
+  color: #777;
+
+  &:hover {
+    cursor: pointer;
   }
 }
 </style>

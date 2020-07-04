@@ -107,6 +107,7 @@ export default {
 
   &__title {
     margin-top: 0;
+    padding-left: 2rem;
     font-weight: 400;
   }
 }
@@ -118,6 +119,8 @@ export default {
 }
 
 .no-items {
+  margin-left: 2rem;
+  margin-right: 2rem;
   padding: 2rem;
   border-radius: .5rem;
   border: 1px solid #eee;

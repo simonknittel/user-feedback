@@ -7,7 +7,7 @@
         <select v-model="commentsOrder">
           <option value="newest">newest first</option>
           <option value="oldest">oldest first</option>
-          <option value="last_activity">last activity first</option>
+          <option value="last_activity">last reply first</option>
         </select>
       </div>
     </div>
@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss">
 .display-options-comments {
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &__order {
     display: block;
