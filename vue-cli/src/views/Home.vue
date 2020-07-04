@@ -11,6 +11,10 @@
           class="type-columns__title"
         >{{ type.title }}s</h2>
 
+        <div class="no-items" v-if="type.items.length === 0">
+          No {{ type.title.toLowerCase() }}s so far
+        </div>
+
         <ul class="item-card-list" v-if="type.items.length > 0">
           <ItemCard
             v-for="item in type.items"
@@ -49,7 +53,9 @@ export default {
             title
             description
             sticky
-            upvotes
+            upvotes {
+              id
+            }
             categories {
               id
               title
@@ -109,5 +115,15 @@ export default {
   list-style: none;
   margin-bottom: 0;
   padding-left: 0;
+}
+
+.no-items {
+  padding: 2rem;
+  border-radius: .5rem;
+  border: 1px solid #eee;
+  color: #aaa;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .9rem;
 }
 </style>

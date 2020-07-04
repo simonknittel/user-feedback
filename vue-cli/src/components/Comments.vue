@@ -2,9 +2,9 @@
   <div class="comments">
     <h2 class="comments__title">Comments</h2>
 
-    <NewComment />
+    <NewComment v-if="$store.state.user !== null" />
 
-    <DisplayOptionsComments v-if="sortedRootComments.length > 0" />
+    <DisplayOptionsComments />
 
     <ul class="comments__list" v-if="sortedRootComments.length > 0">
       <Comment
@@ -15,7 +15,9 @@
       />
     </ul>
 
-    <small v-if="sortedRootComments.length === 0">No comments yet.</small>
+    <div class="no-comments" v-if="sortedRootComments.length === 0">
+      No comments so far
+    </div>
   </div>
 </template>
 
@@ -140,5 +142,15 @@ export default {
       }
     }
   }
+}
+
+.no-comments {
+  padding: 2rem;
+  border-radius: .5rem;
+  border: 1px solid #eee;
+  color: #aaa;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .9rem;
 }
 </style>

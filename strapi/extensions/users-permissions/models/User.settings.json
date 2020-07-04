@@ -60,6 +60,10 @@
     "items": {
       "via": "user",
       "collection": "item"
+    },
+    "upvotedItems": {
+      "via": "upvotes",
+      "collection": "item"
     }
   }
 }

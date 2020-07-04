@@ -56,16 +56,16 @@
       "type": "boolean",
       "default": false
     },
-    "upvotes": {
-      "type": "integer",
-      "min": 1,
-      "default": 1,
-      "required": false
-    },
     "user": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "items"
+    },
+    "upvotes": {
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "upvotedItems",
+      "dominant": true
     }
   }
 }

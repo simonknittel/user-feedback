@@ -2,20 +2,36 @@
   <div class="item__sidebar">
     <dl>
       <dt>Submitted by</dt>
-      <dd>Simon</dd>
+      <dd class="item__sidebar__user">
+        <img
+          :src="`https://www.gravatar.com/avatar/${md5(item.user.email)}?s=48&d=identicon`"
+          width="48"
+          height="48"
+        >
+        {{ item.user.username }}
+      </dd>
 
       <dt>Created at</dt>
-      <dd>12th June 2020</dd>
+      <dd>{{ item.created_at }}</dd>
 
       <dt>Updated at</dt>
-      <dd>3 days ago</dd>
+      <dd>{{ item.updated_at }}</dd>
 
       <dt>ID</dt>
-      <dd>{{ $route.params.id }}</dd>
+      <dd>{{ item.id }}</dd>
     </dl>
 
     <!-- TODO: Add icon (pencil) -->
-    <button class="item__sidebar__link">Edit title, description or categories</button>
+    <button
+      v-if="
+        $store.state.user !== null
+        && (
+          item.user.id === $store.state.user.id
+          || $store.state.user.role.type === 'moderator'
+        )
+      "
+      class="item__sidebar__link"
+    >Edit title, description or categories</button>
 
     <div
       v-if="$store.state.user !== null && $store.state.user.role.type === 'moderator'"
@@ -32,6 +48,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import md5 from 'md5'
 
 export default {
   name: 'ItemViewSidebar',
@@ -67,7 +84,8 @@ export default {
         .catch(error => {
           console.error('error', error)
         })
-    }
+    },
+    md5
   }
 }
 </script>
@@ -105,6 +123,10 @@ export default {
   dl {
     margin-top: 0;
     margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   dt {
@@ -122,6 +144,16 @@ export default {
 
   dd {
     margin-left: 0;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 1rem;
+      border-radius: .5rem;
+    }
   }
 
   &__link {

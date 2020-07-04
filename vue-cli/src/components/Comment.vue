@@ -8,7 +8,11 @@
   >
     <div class="comment__content">
       <div class="comment__avatar">
-        <img src="https://via.placeholder.com/48">
+        <img
+          :src="`https://www.gravatar.com/avatar/${md5(comment.user.email)}?s=48&d=identicon`"
+          width="48"
+          height="48"
+        >
       </div>
 
       <div class="comment__message">
@@ -33,6 +37,8 @@
 </template>
 
 <script>
+import md5 from 'md5'
+
 export default {
   name: 'Comment',
   props: {
@@ -44,6 +50,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  methods: {
+    md5
   }
 }
 </script>
@@ -78,6 +87,7 @@ export default {
     grid-area: avatar;
 
     img {
+      border-radius: .5rem;
       vertical-align: middle;
     }
   }

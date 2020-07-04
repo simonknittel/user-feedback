@@ -5,7 +5,7 @@
 
       <div class="item__main-content" v-if="data">
         <div class="item__card">
-          <Upvote />
+          <Upvote :itemId="data.item.id" />
           <h1 class="item__title">{{ data.item.title }}</h1>
           <div class="item__description">{{ data.item.description }}</div>
 
@@ -54,6 +54,17 @@ export default {
               id
               title
             }
+            user {
+              id
+              username
+              email
+            }
+            created_at
+            updated_at
+            id
+            upvotes {
+              id
+            }
           }
 
           comments (where: $where) {
@@ -64,6 +75,10 @@ export default {
             private
             sticky
             created_at
+            user {
+              id
+              email
+            }
           }
         }
       `,

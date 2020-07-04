@@ -11,9 +11,9 @@
       <span class="login__title">Login</span>
 
       <label for="email">E-mail address</label>
-      <input v-model="identifier" id="email" name="email" type="email" required>
+      <input v-model="identifier" id="email" name="email" type="email" required autocomplete="email">
       <label for="password">Password</label>
-      <input v-model="password" id="password" name="password" type="password" required>
+      <input v-model="password" id="password" name="password" type="password" required autocomplete="current-password">
       <button>Log in</button>
     </div>
   </form>

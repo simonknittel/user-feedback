@@ -1,6 +1,40 @@
 <template>
-  <button class="upvote">A</button>
+  <button @click="click" class="upvote">A</button>
 </template>
+
+<script>
+import gql from 'graphql-tag'
+
+export default {
+  name: 'Upvote',
+  props: ['itemId'],
+  methods: {
+    click (e) {
+      e.preventDefault()
+
+      this.$apollo.mutate({
+        mutation: gql`mutation ($itemId: ID!) {
+          upvoteItem(itemId: $itemId) {
+            upvotes {
+              username
+            }
+          }
+        }`,
+        variables: {
+          itemId: this.itemId
+        }
+      })
+        .then(data => {
+          // TODO: Update upvote count
+          console.log(data.data.upvoteItem.upvotes.length)
+        })
+        .catch(error => {
+          console.error('error', error)
+        })
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .upvote {

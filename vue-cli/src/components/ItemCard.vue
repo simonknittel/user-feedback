@@ -6,7 +6,7 @@
     }"
   >
     <router-link :to="'/item/' + item.id">
-      <Upvote />
+      <Upvote :itemId="item.id" />
       <h3 class="item-card__title">{{ item.title }}</h3>
       <p class="item-card__content">{{ item.description }}</p>
 
