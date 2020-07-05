@@ -15,13 +15,10 @@
         >
       </div>
 
-      <div class="comment__message">
-        {{ comment.message }}
-      </div>
+      <Markdown :rawMarkdown="comment.message" />
 
-      <div class="comment__meta">
-        <!-- Convert date via vue filter in a more readable format -->
-        {{ comment.created_at }}
+      <div class="comment__meta" :title="comment.created_at | dateRaw">
+        {{ comment.created_at | date }}
       </div>
     </div>
 
@@ -34,11 +31,13 @@
       />
     </ul>
 
-    <button
-      v-if="comment.parent === null && showReply === false"
-      class="reply-button"
-      @click.prevent="showReply = true"
-    >New reply</button>
+    <div class="comment__buttons">
+      <button
+        v-if="comment.parent === null && showReply === false"
+        class="comment__button"
+        @click.prevent="showReply = true"
+      >New reply</button>
+    </div>
 
     <NewReply
       v-if="showReply === true"
@@ -51,11 +50,13 @@
 <script>
 import md5 from 'md5'
 
+import Markdown from '@/components/Markdown'
 import NewReply from '@/components/NewReply'
 
 export default {
   name: 'Comment',
   components: {
+    Markdown,
     NewReply
   },
   data () {
@@ -103,6 +104,12 @@ export default {
     padding: 2rem;
 
     border-left: 2px solid #ddd;
+
+    > .markdown {
+      grid-area: message;
+
+      padding-left: 1rem;
+    }
   }
 
   &__avatar {
@@ -114,19 +121,39 @@ export default {
     }
   }
 
-  &__message {
-    grid-area: message;
-
-    padding-left: 1rem;
-  }
-
   &__meta {
     grid-area: meta;
 
-    margin-top: 1rem;
     padding-left: 1rem;
+    margin-top: .2rem;
     font-size: .8rem;
     color: #777;
+  }
+
+  &__buttons {
+    margin-left: 2rem;
+    margin-right: .5rem;
+    margin-top: -.5rem;
+
+    border-left: 2px solid #ddd;
+  }
+
+  &__button {
+    margin-left: .5rem;
+    padding: 0;
+
+    border-radius: 0;
+    border: none;
+    background: none;
+
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: .9rem;
+    color: #777;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &--private {
@@ -134,30 +161,6 @@ export default {
       border-left-color: $red;
       background: linear-gradient(180deg, rgba(255, 0, 0, .1) 0, rgba(255, 0, 0, 0) 7rem);
     }
-  }
-}
-
-.reply-button {
-  vertical-align: middle;
-
-  margin-left: 2rem;
-  margin-top: -1rem;
-  margin-bottom: 0;
-  padding: 0;
-  padding-left: .5rem;
-
-  border-radius: 0;
-  border: none;
-  border-left: 2px solid #ddd;
-  background: none;
-
-  text-decoration: underline;
-  text-transform: uppercase;
-  font-size: .9rem;
-  color: #777;
-
-  &:hover {
-    cursor: pointer;
   }
 }
 </style>

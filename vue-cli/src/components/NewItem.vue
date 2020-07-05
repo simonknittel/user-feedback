@@ -11,6 +11,7 @@
       id="new-item-title-input"
       placeholder="Some descriptive title ..."
       required
+      maxlength="144"
     >
 
     <label for="new-item-description-input">Description</label>
@@ -146,7 +147,7 @@ export default {
     font-family: sans-serif;
 
     .dark & {
-      background-color: #1e1e1e;
+      background-color: #333;
       color: #ddd;
     }
   }
@@ -171,6 +172,7 @@ export default {
   }
 
   &__type-input {
+    cursor: pointer;
     margin-top: 1rem;
   }
 
@@ -183,7 +185,7 @@ export default {
 
     border-radius: .5rem;
     border: none;
-    background-color: #333;
+    background-color: #222;
 
     color: #ddd;
     font-size: .9rem;

@@ -15,7 +15,10 @@
           && $store.state.user.upvotedItems.includes(item.id) ? true : false
         "
       />
-      <h3 class="item-card__title">{{ item.title }}</h3>
+      <h3 class="item-card__title">
+        <span class="item-card__title__inner">{{ item.title }}</span>
+        <Status :status="item.status" :simple="true" />
+      </h3>
       <p class="item-card__content">{{ item.description }}</p>
 
       <Categories
@@ -27,14 +30,16 @@
 </template>
 
 <script>
-import Upvote from './Upvote'
-import Categories from './Categories'
+import Upvote from '@/components/Upvote'
+import Categories from '@/components/Categories'
+import Status from '@/components/Status'
 
 export default {
   name: 'ItemCard',
   components: {
     Upvote,
-    Categories
+    Categories,
+    Status
   },
   props: {
     item: {
@@ -97,6 +102,12 @@ export default {
     margin-bottom: 0;
 
     line-height: 1;
+
+    word-break: break-all;
+
+    &__inner {
+      margin-right: .5rem;
+    }
   }
 
   &__content {
@@ -105,6 +116,11 @@ export default {
 
     color: #777;
     line-height: 1.5;
+  }
+
+  .status {
+    position: relative;
+    top: -.1em;
   }
 
   &--sticky {

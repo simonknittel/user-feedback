@@ -15,7 +15,10 @@
             "
           />
           <h1 class="item__title">{{ data.item.title }}</h1>
-          <div class="item__description">{{ data.item.description }}</div>
+
+          <div class="item__description">
+            <Markdown :rawMarkdown="data.item.description" />
+          </div>
 
           <Categories
             v-if="data.item.categories.length > 0"
@@ -36,11 +39,12 @@
 <script>
 import gql from 'graphql-tag'
 
-import Upvote from '../components/Upvote'
-import Comments from '../components/Comments'
-import Categories from '../components/Categories'
-import Breadcrumb from '../components/Breadcrumb'
-import ItemViewSidebar from '../components/ItemViewSidebar'
+import Upvote from '@/components/Upvote'
+import Comments from '@/components/Comments'
+import Categories from '@/components/Categories'
+import Breadcrumb from '@/components/Breadcrumb'
+import ItemViewSidebar from '@/components/ItemViewSidebar'
+import Markdown from '@/components/Markdown'
 
 export default {
   name: 'Item',
@@ -49,7 +53,8 @@ export default {
     Comments,
     Categories,
     Breadcrumb,
-    ItemViewSidebar
+    ItemViewSidebar,
+    Markdown
   },
   apollo: {
     data: {
@@ -72,6 +77,11 @@ export default {
             id
             upvotes {
               id
+            }
+            status {
+              id
+              title
+              colour
             }
           }
 
@@ -100,7 +110,7 @@ export default {
           }
         }
       },
-      update: data => {
+      update (data) {
         return { ...data }
       }
     }
@@ -176,14 +186,12 @@ export default {
   &__title {
     margin-top: 0;
     margin-bottom: 0;
+
+    word-break: break-all;
   }
 
   &__description {
-    max-width: 50rem;
     margin-top: 1rem;
-    margin-bottom: 0;
-
-    line-height: 1.5;
   }
 }
 </style>

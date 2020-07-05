@@ -60,6 +60,10 @@ export default {
               id
               title
             }
+            status {
+              title
+              colour
+            }
           }
         }
       }`,
@@ -128,5 +132,10 @@ export default {
   text-align: center;
   text-transform: uppercase;
   font-size: .9rem;
+
+  .dark & {
+    border: 1px solid #333;
+    color: #555;
+  }
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
   <div class="item__sidebar">
     <dl>
+      <dt>Status</dt>
+      <dd>
+        <Status :status="item.status" />
+      </dd>
+
       <dt>Submitted by</dt>
       <dd class="item__sidebar__user">
         <img
@@ -12,17 +17,17 @@
       </dd>
 
       <dt>Created at</dt>
-      <dd>{{ item.created_at }}</dd>
+      <dd :title="item.created_at | dateRaw">{{ item.created_at | date }}</dd>
 
       <dt>Updated at</dt>
-      <dd>{{ item.updated_at }}</dd>
+      <dd :title="item.updated_at | dateRaw">{{ item.updated_at | date }}</dd>
 
       <dt>ID</dt>
       <dd>{{ item.id }}</dd>
     </dl>
 
-    <!-- TODO: Add icon (pencil) -->
-    <button
+    <div
+      class="item__sidebar__link"
       v-if="
         $store.state.user !== null
         && (
@@ -30,18 +35,33 @@
           || $store.state.user.role.type === 'moderator'
         )
       "
-      class="item__sidebar__link"
-    >Edit title, description or categories</button>
+    >
+      <!-- TODO: Add icon (pencil) -->
+      <button>Edit title, description or categories</button>
+    </div>
 
     <div
       v-if="$store.state.user !== null && $store.state.user.role.type === 'moderator'"
-      class="item__sidebar__admin"
+      class="item__sidebar__moderator"
     >
       <!-- TODO: Add icon (warning sign) -->
-      <span class="item__sidebar__admin__title">Admin area</span>
+      <span class="item__sidebar__moderator__title">Moderator area</span>
 
-      <!-- TODO: Add icon (trash can) -->
-      <button class="item__sidebar__link" @click="deleteItem">Delete permanently</button>
+      <div class="item__sidebar__link item__sidebar__link--caution">
+        <!-- TODO: Add icon (???) -->
+        <button @click.prevent="changeStatus">Change status</button>
+        <ChangeStatus
+          v-if="showChangeStatus"
+          :itemId="item.id"
+          :submitted="changeStatus"
+          :currentStatus="item.status.id"
+        />
+      </div>
+
+      <div class="item__sidebar__link item__sidebar__link--caution">
+        <!-- TODO: Add icon (trash can) -->
+        <button @click="deleteItem">Delete permanently</button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,16 +70,28 @@
 import gql from 'graphql-tag'
 import md5 from 'md5'
 
+import Status from '@/components/Status'
+import ChangeStatus from '@/components/ChangeStatus'
+
 export default {
   name: 'ItemViewSidebar',
+  components: {
+    Status,
+    ChangeStatus
+  },
   props: {
     item: {
       type: Object,
       required: true
     }
   },
+  data () {
+    return {
+      showChangeStatus: false
+    }
+  },
   methods: {
-    deleteItem: function (e) {
+    deleteItem (e) {
       e.preventDefault()
 
       this.$apollo.mutate({
@@ -85,7 +117,10 @@ export default {
           console.error('error', error)
         })
     },
-    md5
+    md5,
+    changeStatus () {
+      this.showChangeStatus = !this.showChangeStatus
+    }
   }
 }
 </script>
@@ -98,7 +133,7 @@ export default {
 
   position: relative;
 
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 2rem;
 
   box-shadow: 2px 2px 10px 0 $shadow--light;
   border-radius: .5rem;
@@ -157,19 +192,38 @@ export default {
   }
 
   &__link {
-    cursor: pointer;
+    position: relative;
 
-    padding: .5rem;
+    margin-top: .2rem;
 
-    border: 1px solid #aaa;
-    border-radius: .2rem;
-    background: white;
+    &:first-of-type {
+      margin-top: 0;
+    }
 
-    font-size: .9rem;
-    color: #333;
+    > button {
+      cursor: pointer;
+
+      padding: .5rem;
+
+      border: 1px solid rgba(0, 0, 0, .3);
+      border-radius: .2rem;
+      background: transparent;
+
+      font-size: .9rem;
+      color: #333;
+    }
+
+    &--caution {
+      > button {
+        border-color: $red;
+        background: $red--light;
+
+        color: $red;
+      }
+    }
   }
 
-  &__admin {
+  &__moderator {
     margin-left: -2rem;
     margin-right: -2rem;
     margin-top: 2rem;
@@ -181,13 +235,6 @@ export default {
 
     border-top: 1px solid $red;
     background: linear-gradient(180deg, rgba(255, 0, 0, .1) 0, rgba(255, 0, 0, 0) 7rem);
-
-    .item__sidebar__link {
-      border-color: $red;
-      background: $red--light;
-
-      color: $red;
-    }
 
     &__title {
       display: block;

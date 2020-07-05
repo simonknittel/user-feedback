@@ -47,7 +47,7 @@ export default {
       `,
       update (data) {
         if (!data.self.id) return
-        console.log(data.self.upvotedItems)
+        console.log('upvotedItems', data.self.upvotedItems)
         this.$store.commit('updateUser', data.self)
         return { ...data }
       }

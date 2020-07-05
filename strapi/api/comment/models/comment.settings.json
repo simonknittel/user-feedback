@@ -14,8 +14,8 @@
       "required": true
     },
     "item": {
-      "via": "comments",
-      "model": "item"
+      "model": "item",
+      "via": "comments"
     },
     "children": {
       "collection": "comment",
@@ -38,6 +38,11 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "comments"
+    },
+    "deleted": {
+      "type": "boolean",
+      "default": false,
+      "required": false
     }
   }
 }

@@ -15,8 +15,12 @@
       "required": true
     },
     "items": {
-      "via": "status",
-      "collection": "item"
+      "collection": "item",
+      "via": "status"
+    },
+    "colour": {
+      "type": "string",
+      "required": true
     }
   }
 }

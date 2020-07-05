@@ -30,8 +30,8 @@
       "required": false
     },
     "status": {
-      "model": "item-status",
-      "via": "items"
+      "via": "items",
+      "model": "item-status"
     },
     "type": {
       "model": "item-type",
@@ -49,8 +49,8 @@
       ]
     },
     "comments": {
-      "collection": "comment",
-      "via": "item"
+      "via": "item",
+      "collection": "comment"
     },
     "sticky": {
       "type": "boolean",
