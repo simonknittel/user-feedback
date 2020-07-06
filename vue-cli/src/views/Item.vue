@@ -18,7 +18,7 @@
           />
         </div>
 
-        <Comments :allComments="item.comments" />
+        <Comments :itemId="item.id" />
       </div>
     </main>
 

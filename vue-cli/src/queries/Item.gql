@@ -19,19 +19,5 @@ query ($id: ID!) {
       title
       colour
     }
-
-    comments {
-      id
-      message
-      parent { id }
-      children { id }
-      private
-      sticky
-      created_at
-      user {
-        id
-        email
-      }
-    }
   }
 }

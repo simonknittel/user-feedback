@@ -26,8 +26,8 @@
       <Comment
         v-for="child in comment.children"
         :key="child.id"
-        :comment="allComments.filter(comment => comment.id === child.id)[0]"
-        :allComments="allComments"
+        :comment="comments.filter(comment => comment.id === child.id)[0]"
+        :comments="comments"
       />
     </ul>
 
@@ -41,6 +41,7 @@
 
     <NewReply
       v-if="showReply === true"
+      :itemId="$route.params.id"
       :commentId="comment.id"
       :hideReply="() => { showReply = false }"
     />
@@ -71,7 +72,7 @@ export default {
       type: Object,
       required: true
     },
-    allComments: {
+    comments: {
       type: Array,
       required: true
     }

@@ -1,0 +1,15 @@
+query ($where: JSON) {
+  comments (where: $where) {
+    id
+    message
+    parent { id }
+    children { id }
+    private
+    sticky
+    created_at
+    user {
+      id
+      email
+    }
+  }
+}

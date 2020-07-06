@@ -11,7 +11,7 @@
         v-for="comment in sortedRootComments"
         :key="comment.id"
         :comment="comment"
-        :allComments="allComments"
+        :comments="comments"
       />
     </ul>
 
@@ -26,6 +26,8 @@ import NewComment from './NewComment'
 import Comment from './Comment'
 import DisplayOptionsComments from './DisplayOptionsComments'
 
+import COMMENTS from '@/queries/Comments.gql'
+
 export default {
   name: 'Comments',
   components: {
@@ -33,15 +35,21 @@ export default {
     Comment,
     DisplayOptionsComments
   },
-  props: {
-    allComments: {
-      type: Array,
-      required: true
+  props: ['itemId'],
+  apollo: {
+    comments: {
+      query: COMMENTS,
+      variables () {
+        return { where: { item: { id: this.itemId } } }
+      },
+      update: ({ comments }) => comments
     }
   },
   computed: {
-    sortedRootComments: function () {
-      const comments = [...this.allComments].filter(comment => !comment.parent)
+    sortedRootComments () {
+      if (!this.comments) return []
+
+      const comments = [...this.comments].filter(comment => !comment.parent)
 
       switch (this.$store.state.commentsOrder) {
         case 'newest':
@@ -59,7 +67,7 @@ export default {
         case 'last_activity':
           comments.sort((a, b) => {
             let aCreatedAt = new Date(a.created_at)
-            for (const comment of this.allComments) {
+            for (const comment of this.comments) {
               if (!comment.parent || comment.parent.id !== a.id) continue
 
               const date = new Date(comment.created_at)
@@ -67,7 +75,7 @@ export default {
             }
 
             let bCreatedAt = new Date(b.created_at)
-            for (const comment of this.allComments) {
+            for (const comment of this.comments) {
               if (!comment.parent || comment.parent.id !== b.id) continue
 
               const date = new Date(comment.created_at)

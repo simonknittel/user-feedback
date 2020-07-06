@@ -22,11 +22,12 @@
 </template>
 
 <script>
-// import gql from 'graphql-tag'
+import CREATE_REPLY from '@/queries/CreateReply.gql'
+import COMMENTS from '@/queries/Comments.gql'
 
 export default {
   name: 'NewReply',
-  props: ['commentId', 'hideReply'],
+  props: ['itemId', 'commentId', 'hideReply'],
   data: function () {
     return {
       message: ''
@@ -36,31 +37,37 @@ export default {
     submit: function (e) {
       e.preventDefault()
 
-      // this.$apollo.mutate({
-      //   mutation: gql`mutation ($input: createReplyInput!) {
-      //     createReply(input: $input) {
-      //       reply {
-      //         id
-      //       }
-      //     }
-      //   }`,
-      //   variables: {
-      //     input: {
-      //       data: {
-      //         item: this.$route.params.id,
-      //         message: this.message
-      //       }
-      //     }
-      //   }
-      // })
-      //   .then(() => {
-      //     // TODO: Refresh replys
+      this.$apollo.mutate({
+        mutation: CREATE_REPLY,
+        variables: {
+          input: {
+            data: {
+              item: this.itemId,
+              parent: this.commentId,
+              message: this.message
+            }
+          }
+        },
+        update: (store, { data: { createComment } }) => {
+          const query = {
+            query: COMMENTS,
+            variables: { where: { item: { id: this.itemId } } }
+          }
 
-      //     this.message = ''
-      //   })
-      //   .catch(error => {
-      //     console.error('error', error)
-      //   })
+          const data = store.readQuery(query)
+
+          // TODO: Update items updated_at as well
+          data.comments.push(createComment.comment)
+
+          store.writeQuery({ ...query, data })
+        }
+      })
+        .then(() => {
+          this.hideReply()
+        })
+        .catch(error => {
+          console.error('error', error)
+        })
     }
   }
 }
