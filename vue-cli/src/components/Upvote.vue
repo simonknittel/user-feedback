@@ -18,13 +18,13 @@
 import UPVOTES from '@/queries/Upvotes.gql'
 import UPVOTE_ITEM from '@/queries/UpvoteItem.gql'
 import DOWNVOTE_ITEM from '@/queries/DownvoteItem.gql'
+import UPVOTED_ITEMS from '@/queries/UpvotedItems.gql'
 
 export default {
   name: 'Upvote',
   props: ['itemId'],
   data () {
     return {
-      active: this.$store.state.user !== null && this.$store.state.user.upvotedItems !== null && this.$store.state.user.upvotedItems.includes(this.itemId),
       loading: false
     }
   },
@@ -39,6 +39,9 @@ export default {
       }
 
       return string
+    },
+    active () {
+      return this.upvotedItems && this.upvotedItems.map(item => item.id).includes(this.itemId)
     }
   },
   apollo: {
@@ -50,6 +53,18 @@ export default {
         }
       },
       update: ({ item }) => item.upvotes
+    },
+    upvotedItems: {
+      query: UPVOTED_ITEMS,
+      variables () {
+        return {
+          id: this.$store.state.user.id
+        }
+      },
+      update: ({ user }) => user.upvotedItems,
+      skip () {
+        return this.$store.state.user === null
+      }
     }
   },
   methods: {
@@ -59,21 +74,26 @@ export default {
       // Downvote
       if (this.active) {
         this.$apollo.mutate({
-          mutation: UPVOTE_ITEM,
+          mutation: DOWNVOTE_ITEM,
           variables: {
             itemId: this.itemId
           },
-          update: (store, { data: { upvoteItem } }) => {
-            const query = {
+          update: (store, { data: { downvoteItem } }) => {
+            const query1 = {
               query: UPVOTES,
               variables: { id: this.itemId }
             }
+            const data1 = store.readQuery(query1)
+            data1.item.upvotes = downvoteItem.upvotes
+            store.writeQuery({ ...query1, data: data1 })
 
-            const data = store.readQuery(query)
-
-            data.item.upvotes = upvoteItem.upvotes
-
-            store.writeQuery({ ...query, data })
+            const query2 = {
+              query: UPVOTED_ITEMS,
+              variables: { id: this.$store.state.user.id }
+            }
+            const data2 = store.readQuery(query2)
+            data2.user.upvotedItems = data2.user.upvotedItems.filter(item => item.id !== this.itemId)
+            store.writeQuery({ ...query2, data: data2 })
           }
         })
           .catch(error => {
@@ -86,21 +106,26 @@ export default {
       // Upvote
       } else {
         this.$apollo.mutate({
-          mutation: DOWNVOTE_ITEM,
+          mutation: UPVOTE_ITEM,
           variables: {
             itemId: this.itemId
           },
-          update: (store, { data: { downvoteItem } }) => {
-            const query = {
+          update: (store, { data: { upvoteItem } }) => {
+            const query1 = {
               query: UPVOTES,
               variables: { id: this.itemId }
             }
+            const data1 = store.readQuery(query1)
+            data1.item.upvotes = upvoteItem.upvotes
+            store.writeQuery({ ...query1, data: data1 })
 
-            const data = store.readQuery(query)
-
-            data.item.upvotes = downvoteItem.upvotes
-
-            store.writeQuery({ ...query, data })
+            const query2 = {
+              query: UPVOTED_ITEMS,
+              variables: { id: this.$store.state.user.id }
+            }
+            const data2 = store.readQuery(query2)
+            data2.user.upvotedItems.push({ id: upvoteItem.id, __typename: 'Item' })
+            store.writeQuery({ ...query2, data: data2 })
           }
         })
           .catch(error => {

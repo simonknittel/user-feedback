@@ -1,0 +1,11 @@
+query {
+  self {
+    id
+    username
+    email
+    role {
+      id
+      type
+    }
+  }
+}

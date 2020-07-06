@@ -12,6 +12,7 @@ query {
         title
       }
       status {
+        id
         title
         colour
       }

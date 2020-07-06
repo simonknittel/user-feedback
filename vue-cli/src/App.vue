@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 import Header from '@/components/Header'
 import Login from '@/components/Login'
+
+import SELF from '@/queries/Self.gql'
 
 export default {
   name: 'App',
@@ -29,27 +29,13 @@ export default {
     }
   },
   apollo: {
-    data: {
-      query: gql`
-        query {
-          self {
-            id
-            username
-            email
-            role {
-              type
-            }
-            upvotedItems {
-              id
-            }
-          }
-        }
-      `,
-      update (data) {
-        if (!data.self.id) return
-        console.log('upvotedItems', data.self.upvotedItems)
-        this.$store.commit('updateUser', data.self)
-        return { ...data }
+    self: {
+      query: SELF,
+      update ({ self }) {
+        if (!self.id) return
+        console.log('upvotedItems', self.upvotedItems)
+        this.$store.commit('updateUser', self)
+        return self
       }
     }
   }

@@ -1,5 +1,6 @@
 query ($id: ID!) {
   item (id: $id) {
+    id
     title
     description
     categories {
@@ -13,7 +14,6 @@ query ($id: ID!) {
     }
     created_at
     updated_at
-    id
     status {
       id
       title
