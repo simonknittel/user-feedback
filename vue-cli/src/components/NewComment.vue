@@ -9,32 +9,32 @@
       rows="4"
       required
     ></textarea>
-    <button class="new-comment__submit-button">Submit</button>
+    <button
+      class="new-comment__submit-button"
+      :disabled="loading"
+    >Submit</button>
   </form>
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import NEW_COMMENT from '@/queries/NewComment.gql'
+import ITEM from '@/queries/Item.gql'
 
 export default {
   name: 'NewComment',
   data: function () {
     return {
-      message: ''
+      message: '',
+      loading: false
     }
   },
   methods: {
     submit: function (e) {
       e.preventDefault()
+      this.loading = true
 
       this.$apollo.mutate({
-        mutation: gql`mutation ($input: createCommentInput!) {
-          createComment(input: $input) {
-            comment {
-              id
-            }
-          }
-        }`,
+        mutation: NEW_COMMENT,
         variables: {
           input: {
             data: {
@@ -42,15 +42,29 @@ export default {
               message: this.message
             }
           }
+        },
+        update: (store, { data: { createComment } }) => {
+          const query = {
+            query: ITEM,
+            variables: { id: this.$route.params.id }
+          }
+
+          const data = store.readQuery(query)
+
+          // TODO: Update items updated_at as well
+          data.item.comments.push(createComment.comment)
+
+          store.writeQuery({ ...query, data })
         }
       })
         .then(() => {
-          // TODO: Refresh comments
-
           this.message = ''
         })
         .catch(error => {
           console.error('error', error)
+        })
+        .finally(() => {
+          this.loading = false
         })
     }
   }
@@ -104,6 +118,10 @@ export default {
     font-size: .9rem;
     font-family: sans-serif;
     text-transform: uppercase;
+
+    &:disabled {
+      opacity: .5;
+    }
   }
 }
 </style>

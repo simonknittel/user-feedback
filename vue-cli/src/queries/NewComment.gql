@@ -1,0 +1,17 @@
+mutation ($input: createCommentInput!) {
+  createComment(input: $input) {
+    comment {
+      id
+      message
+      parent { id }
+      children { id }
+      private
+      sticky
+      created_at
+      user {
+        id
+        email
+      }
+    }
+  }
+}

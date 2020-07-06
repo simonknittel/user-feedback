@@ -36,13 +36,16 @@
         </option>
       </select>
 
-      <button class="new-item__submit-button">Submit</button>
+      <button
+        class="new-item__submit-button"
+        :disabled="loading"
+      >Submit</button>
     </div>
   </form>
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import CREATE_ITEM from '@/queries/CreateItem.gql'
 
 export default {
   name: 'NewItem',
@@ -50,21 +53,17 @@ export default {
     return {
       title: '',
       description: '',
-      type: 1 // TODO: Change to first availableItem type
+      type: 1, // TODO: Change to first availableItem type
+      loading: false
     }
   },
   methods: {
     submit: function (e) {
       e.preventDefault()
+      this.loading = true
 
       this.$apollo.mutate({
-        mutation: gql`mutation ($input: createItemInput!) {
-          createItem(input: $input) {
-            item {
-              id
-            }
-          }
-        }`,
+        mutation: CREATE_ITEM,
         variables: {
           input: {
             data: {
@@ -76,12 +75,10 @@ export default {
         }
       })
         .then(createItemResponse => {
-          this.title = ''
-          this.description = ''
-
           this.$router.push({ name: 'Item', params: { id: createItemResponse.data.createItem.item.id } })
         })
         .catch(error => {
+          this.loading = false
           console.error('error', error)
         })
     }

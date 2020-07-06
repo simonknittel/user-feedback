@@ -3,48 +3,48 @@
     <main>
       <Breadcrumb />
 
-      <div class="item__main-content" v-if="data">
+      <div class="item__main-content" v-if="item">
         <div class="item__card">
           <Upvote
-            :itemId="data.item.id"
-            :upvoteCount="data.item.upvotes.length"
+            :itemId="item.id"
+            :upvoteCount="item.upvotes.length"
             :active="
               $store.state.user !== null
               && $store.state.user.upvotedItems !== null
-              && $store.state.user.upvotedItems.includes(data.item.id) ? true : false
+              && $store.state.user.upvotedItems.includes(item.id) ? true : false
             "
           />
-          <h1 class="item__title">{{ data.item.title }}</h1>
+          <h1 class="item__title">{{ item.title }}</h1>
 
           <div class="item__description">
-            <Markdown :rawMarkdown="data.item.description" />
+            <Markdown :rawMarkdown="item.description" />
           </div>
 
           <Categories
-            v-if="data.item.categories.length > 0"
-            :categories="data.item.categories"
+            v-if="item.categories.length > 0"
+            :categories="item.categories"
           />
         </div>
 
-        <Comments :allComments="data.comments" />
+        <Comments :allComments="item.comments" />
       </div>
     </main>
 
     <aside>
-      <ItemViewSidebar v-if="data" :item="data.item" />
+      <ItemViewSidebar v-if="item" :item="item" />
     </aside>
   </div>
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 import Upvote from '@/components/Upvote'
 import Comments from '@/components/Comments'
 import Categories from '@/components/Categories'
 import Breadcrumb from '@/components/Breadcrumb'
 import ItemViewSidebar from '@/components/ItemViewSidebar'
 import Markdown from '@/components/Markdown'
+
+import ITEM from '@/queries/Item.gql'
 
 export default {
   name: 'Item',
@@ -57,62 +57,14 @@ export default {
     Markdown
   },
   apollo: {
-    data: {
-      query: gql`
-        query ($id: ID!, $where: JSON!) {
-          item (id: $id) {
-            title
-            description
-            categories {
-              id
-              title
-            }
-            user {
-              id
-              username
-              email
-            }
-            created_at
-            updated_at
-            id
-            upvotes {
-              id
-            }
-            status {
-              id
-              title
-              colour
-            }
-          }
-
-          comments (where: $where) {
-            id
-            message
-            parent { id }
-            children { id }
-            private
-            sticky
-            created_at
-            user {
-              id
-              email
-            }
-          }
-        }
-      `,
+    item: {
+      query: ITEM,
       variables () {
         return {
-          id: this.$route.params.id,
-          where: {
-            item: {
-              id: this.$route.params.id
-            }
-          }
+          id: this.$route.params.id
         }
       },
-      update (data) {
-        return { ...data }
-      }
+      update: ({ item }) => item
     }
   }
 }

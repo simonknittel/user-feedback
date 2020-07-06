@@ -17,10 +17,10 @@
       </dd>
 
       <dt>Created at</dt>
-      <dd :title="item.created_at | dateRaw">{{ item.created_at | date }}</dd>
+      <dd><DateTime :value="item.created_at" /></dd>
 
       <dt>Updated at</dt>
-      <dd :title="item.updated_at | dateRaw">{{ item.updated_at | date }}</dd>
+      <dd><DateTime :value="item.updated_at" /></dd>
 
       <dt>ID</dt>
       <dd>{{ item.id }}</dd>
@@ -72,12 +72,14 @@ import md5 from 'md5'
 
 import Status from '@/components/Status'
 import ChangeStatus from '@/components/ChangeStatus'
+import DateTime from '@/components/DateTime'
 
 export default {
   name: 'ItemViewSidebar',
   components: {
     Status,
-    ChangeStatus
+    ChangeStatus,
+    DateTime
   },
   props: {
     item: {

@@ -1,0 +1,7 @@
+mutation ($itemId: ID!) {
+  upvoteItem(itemId: $itemId) {
+    upvotes {
+      username
+    }
+  }
+}

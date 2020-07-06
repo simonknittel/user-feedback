@@ -1,0 +1,23 @@
+query {
+  itemTypes {
+    id
+    title
+    items {
+      id
+      title
+      description
+      sticky
+      upvotes {
+        id
+      }
+      categories {
+        id
+        title
+      }
+      status {
+        title
+        colour
+      }
+    }
+  }
+}

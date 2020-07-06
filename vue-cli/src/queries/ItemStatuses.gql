@@ -1,0 +1,6 @@
+query {
+  itemStatuses {
+    id
+    title
+  }
+}

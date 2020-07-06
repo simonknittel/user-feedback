@@ -1,0 +1,12 @@
+mutation ($input: updateItemInput) {
+  updateItem(input: $input) {
+    item {
+      status {
+        id
+        title
+        colour
+      }
+      updated_at
+    }
+  }
+}

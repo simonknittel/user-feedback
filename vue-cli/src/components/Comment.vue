@@ -17,8 +17,8 @@
 
       <Markdown :rawMarkdown="comment.message" />
 
-      <div class="comment__meta" :title="comment.created_at | dateRaw">
-        {{ comment.created_at | date }}
+      <div class="comment__meta">
+        <DateTime :value="comment.created_at" />
       </div>
     </div>
 
@@ -52,12 +52,14 @@ import md5 from 'md5'
 
 import Markdown from '@/components/Markdown'
 import NewReply from '@/components/NewReply'
+import DateTime from '@/components/DateTime'
 
 export default {
   name: 'Comment',
   components: {
     Markdown,
-    NewReply
+    NewReply,
+    DateTime
   },
   data () {
     return {

@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="click"
+    @click.prevent="click"
     :class="{
       'upvote': true,
       'upvote--active': active,
@@ -13,23 +13,15 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import UPVOTE_ITEM from '@/queries/UpvoteItem.gql'
 
 export default {
   name: 'Upvote',
   props: ['itemId', 'upvoteCount', 'active'],
   methods: {
-    click (e) {
-      e.preventDefault()
-
+    click () {
       this.$apollo.mutate({
-        mutation: gql`mutation ($itemId: ID!) {
-          upvoteItem(itemId: $itemId) {
-            upvotes {
-              username
-            }
-          }
-        }`,
+        mutation: UPVOTE_ITEM,
         variables: {
           itemId: this.itemId
         }

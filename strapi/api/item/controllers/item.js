@@ -26,12 +26,21 @@ module.exports = {
   async update(ctx) {
     const { id } = ctx.params
 
-    const [item] = await strapi.services.item.find({
-      id: ctx.params.id,
-      'user.id': ctx.state.user.id,
-    })
+    let allowed = false
+    if (ctx.state.user.role.type === 'moderator') {
+      const [item] = await strapi.services.item.find({
+        id: ctx.params.id
+      })
+      if (item) allowed = true
+    } else {
+      const [item] = await strapi.services.item.find({
+        id: ctx.params.id,
+        'user.id': ctx.state.user.id,
+      })
+      if (item) allowed = true
+    }
 
-    if (!item) {
+    if (!allowed) {
       return ctx.unauthorized(`You can't update this entry`)
     }
 

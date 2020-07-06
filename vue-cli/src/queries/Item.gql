@@ -1,0 +1,40 @@
+query ($id: ID!) {
+  item (id: $id) {
+    title
+    description
+    categories {
+      id
+      title
+    }
+    user {
+      id
+      username
+      email
+    }
+    created_at
+    updated_at
+    id
+    upvotes {
+      id
+    }
+    status {
+      id
+      title
+      colour
+    }
+
+    comments {
+      id
+      message
+      parent { id }
+      children { id }
+      private
+      sticky
+      created_at
+      user {
+        id
+        email
+      }
+    }
+  }
+}

@@ -1,54 +1,46 @@
 <template>
   <form class="change-status" @submit.prevent="submit">
     <label for="change_status">Change status to</label>
-    <select v-if="data" v-model="newStatus" id="change_status" required>
+    <select v-if="itemStatuses" v-model="newStatus" id="change_status" required>
       <option
-        v-for="status in data.itemStatuses"
+        v-for="status in itemStatuses"
         :key="status.id"
         :value="status.id"
       >{{ status.title }}</option>
     </select>
-    <button type="submit">Save</button>
+    <button
+      type="submit"
+      :disabled="loading"
+    >Save</button>
   </form>
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import ITEM_STATUSES from '@/queries/ItemStatuses.gql'
+import CHANGE_STATUS from '@/queries/ChangeStatus.gql'
+import ITEM from '@/queries/Item.gql'
 
 export default {
   name: 'ChangeStatus',
   props: ['itemId', 'submitted', 'currentStatus'],
   data () {
     return {
-      newStatus: this.currentStatus
+      newStatus: this.currentStatus,
+      loading: false
     }
   },
   apollo: {
-    data: {
-      query: gql`
-        query {
-          itemStatuses {
-            id
-            title
-          }
-        }
-      `,
-      update (data) {
-        return { ...data }
-      }
+    itemStatuses: {
+      query: ITEM_STATUSES,
+      update: ({ itemStatuses }) => itemStatuses
     }
   },
   methods: {
     submit () {
-      // TODO: Run GraphQL mutation for changing the status
+      this.loading = true
+
       this.$apollo.mutate({
-        mutation: gql`mutation ($input: updateItemInput) {
-          updateItem(input: $input) {
-            item {
-              id
-            }
-          }
-        }`,
+        mutation: CHANGE_STATUS,
         variables: {
           input: {
             where: {
@@ -58,16 +50,28 @@ export default {
               status: this.newStatus
             }
           }
+        },
+        update: (store, { data: { updateItem } }) => {
+          const query = {
+            query: ITEM,
+            variables: { id: this.$route.params.id }
+          }
+
+          const data = store.readQuery(query)
+
+          data.item.status = updateItem.item.status
+          data.item.updated_at = updateItem.item.updated_at
+
+          store.writeQuery({ ...query, data })
         }
       })
-        .then(data => {
-          // TODO: Update item status
+        .then(() => {
+          this.submitted()
         })
         .catch(error => {
+          this.loading = false
           console.error('error', error)
         })
-
-      this.submitted()
     }
   }
 }
@@ -152,6 +156,10 @@ export default {
     font-size: .9rem;
     font-family: sans-serif;
     text-transform: uppercase;
+
+    &:disabled {
+      opacity: .5;
+    }
   }
 }
 </style>

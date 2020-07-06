@@ -32,9 +32,10 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import NewItem from '../components/NewItem'
-import ItemCard from '../components/ItemCard'
+import NewItem from '@/components/NewItem'
+import ItemCard from '@/components/ItemCard'
+
+import ITEM_TYPES from '@/queries/ItemTypes.gql'
 
 export default {
   name: 'Home',
@@ -44,29 +45,7 @@ export default {
   },
   beforeCreate () {
     this.$apollo.query({
-      query: gql`query {
-        itemTypes {
-          id
-          title
-          items {
-            id
-            title
-            description
-            sticky
-            upvotes {
-              id
-            }
-            categories {
-              id
-              title
-            }
-            status {
-              title
-              colour
-            }
-          }
-        }
-      }`,
+      query: ITEM_TYPES,
       fetchPolicy: 'no-cache'
     })
       .then(response => {
