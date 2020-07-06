@@ -13,6 +13,12 @@ export default {
       interval: null
     }
   },
+  watch: {
+    value: function (newValue) {
+      this.raw = this.$options.filters.dateRaw(newValue)
+      this.formatted = this.$options.filters.date(newValue)
+    }
+  },
   created () {
     /**
      * Create a random interval for each DateTime component to prevent spikes

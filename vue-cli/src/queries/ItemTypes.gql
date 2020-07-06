@@ -7,9 +7,6 @@ query {
       title
       description
       sticky
-      upvotes {
-        id
-      }
       categories {
         id
         title

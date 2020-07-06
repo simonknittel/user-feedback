@@ -5,34 +5,111 @@
       'upvote': true,
       'upvote--active': active,
     }"
-    :title="active ? 'Click to remove your upvote' : 'Click to upvote'"
+    :title="title"
+    :disabled="!upvotes || loading"
   >
     <span class="upvote__arrow"></span>
-    <span class="upvote__count">{{ upvoteCount }}</span>
+    <span class="upvote__count" v-if="upvotes">{{ upvotes.length }}</span>
+    <span class="upvote__count" v-if="!upvotes">-</span>
   </button>
 </template>
 
 <script>
+import UPVOTES from '@/queries/Upvotes.gql'
 import UPVOTE_ITEM from '@/queries/UpvoteItem.gql'
+import DOWNVOTE_ITEM from '@/queries/DownvoteItem.gql'
 
 export default {
   name: 'Upvote',
-  props: ['itemId', 'upvoteCount', 'active'],
+  props: ['itemId'],
+  data () {
+    return {
+      active: this.$store.state.user !== null && this.$store.state.user.upvotedItems !== null && this.$store.state.user.upvotedItems.includes(this.itemId),
+      loading: false
+    }
+  },
+  computed: {
+    title () {
+      let string = ''
+
+      string += this.active ? 'Click to remove your upvote' : 'Click to upvote'
+
+      if (this.upvotes && this.upvotes.length > 0) {
+        string += '\n\nUpvoted by ' + this.upvotes.map(upvote => upvote.username).join(', ')
+      }
+
+      return string
+    }
+  },
+  apollo: {
+    upvotes: {
+      query: UPVOTES,
+      variables () {
+        return {
+          id: this.itemId
+        }
+      },
+      update: ({ item }) => item.upvotes
+    }
+  },
   methods: {
     click () {
-      this.$apollo.mutate({
-        mutation: UPVOTE_ITEM,
-        variables: {
-          itemId: this.itemId
-        }
-      })
-        .then(data => {
-          // TODO: Update upvote count
-          console.log(data.data.upvoteItem.upvotes.length)
+      this.loading = true
+
+      // Downvote
+      if (this.active) {
+        this.$apollo.mutate({
+          mutation: UPVOTE_ITEM,
+          variables: {
+            itemId: this.itemId
+          },
+          update: (store, { data: { upvoteItem } }) => {
+            const query = {
+              query: UPVOTES,
+              variables: { id: this.itemId }
+            }
+
+            const data = store.readQuery(query)
+
+            data.item.upvotes = upvoteItem.upvotes
+
+            store.writeQuery({ ...query, data })
+          }
         })
-        .catch(error => {
-          console.error('error', error)
+          .catch(error => {
+            console.error('error', error)
+          })
+          .finally(() => {
+            this.loading = false
+          })
+
+      // Upvote
+      } else {
+        this.$apollo.mutate({
+          mutation: DOWNVOTE_ITEM,
+          variables: {
+            itemId: this.itemId
+          },
+          update: (store, { data: { downvoteItem } }) => {
+            const query = {
+              query: UPVOTES,
+              variables: { id: this.itemId }
+            }
+
+            const data = store.readQuery(query)
+
+            data.item.upvotes = downvoteItem.upvotes
+
+            store.writeQuery({ ...query, data })
+          }
         })
+          .catch(error => {
+            console.error('error', error)
+          })
+          .finally(() => {
+            this.loading = false
+          })
+      }
     }
   }
 }
@@ -56,6 +133,10 @@ export default {
   background-color: transparent;
 
   transition: background-color .1s;
+
+  &:disabled {
+    opacity: .5;
+  }
 
   .dark & {
     border-color: #333;

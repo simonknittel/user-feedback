@@ -6,15 +6,7 @@
     }"
   >
     <router-link :to="'/item/' + item.id">
-      <Upvote
-        :itemId="item.id"
-        :upvoteCount="item.upvotes.length"
-        :active="
-          $store.state.user !== null
-          && $store.state.user.upvotedItems !== null
-          && $store.state.user.upvotedItems.includes(item.id) ? true : false
-        "
-      />
+      <Upvote :itemId="item.id" />
       <h3 class="item-card__title">
         <span class="item-card__title__inner">{{ item.title }}</span>
         <Status :status="item.status" :simple="true" />

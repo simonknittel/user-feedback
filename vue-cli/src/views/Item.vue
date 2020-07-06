@@ -5,15 +5,7 @@
 
       <div class="item__main-content" v-if="item">
         <div class="item__card">
-          <Upvote
-            :itemId="item.id"
-            :upvoteCount="item.upvotes.length"
-            :active="
-              $store.state.user !== null
-              && $store.state.user.upvotedItems !== null
-              && $store.state.user.upvotedItems.includes(item.id) ? true : false
-            "
-          />
+          <Upvote :itemId="item.id" />
           <h1 class="item__title">{{ item.title }}</h1>
 
           <div class="item__description">

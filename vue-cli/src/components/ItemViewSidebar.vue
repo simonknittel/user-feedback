@@ -188,8 +188,9 @@ export default {
     align-items: center;
 
     img {
+      vertical-align: middle;
       margin-right: 1rem;
-      border-radius: .5rem;
+      border-radius: 50%;
     }
   }
 

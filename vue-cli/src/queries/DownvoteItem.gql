@@ -1,5 +1,5 @@
 mutation ($itemId: ID!) {
-  upvoteItem(itemId: $itemId) {
+  downvoteItem(itemId: $itemId) {
     id
     upvotes {
       id

@@ -1,0 +1,9 @@
+query ($id: ID!) {
+  item (id: $id) {
+    id
+    upvotes {
+      id
+      username
+    }
+  }
+}

@@ -14,9 +14,6 @@ query ($id: ID!) {
     created_at
     updated_at
     id
-    upvotes {
-      id
-    }
     status {
       id
       title

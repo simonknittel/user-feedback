@@ -118,8 +118,8 @@ export default {
     grid-area: avatar;
 
     img {
-      border-radius: .5rem;
       vertical-align: middle;
+      border-radius: 50%;
     }
   }
 
