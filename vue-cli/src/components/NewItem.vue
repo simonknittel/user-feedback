@@ -69,7 +69,8 @@ export default {
             data: {
               title: this.title,
               description: this.description,
-              type: this.type
+              type: this.type,
+              upvotes: [this.$store.state.user.id]
             }
           }
         }

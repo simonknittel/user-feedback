@@ -14,9 +14,13 @@ module.exports = {
     if (ctx.is('multipart')) {
       const { data, files } = parseMultipartData(ctx)
       data.user = ctx.state.user.id
+      const settings = await strapi.services.settings.find()
+      data.status = settings.defaultStatus.id
       entity = await strapi.services.item.create(data, { files })
     } else {
       ctx.request.body.user = ctx.state.user.id
+      const settings = await strapi.services.settings.find()
+      ctx.request.body.status = settings.defaultStatus.id
       entity = await strapi.services.item.create(ctx.request.body)
     }
 

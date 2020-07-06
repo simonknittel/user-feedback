@@ -12,6 +12,9 @@
     "allowNestedComments": {
       "type": "boolean",
       "default": true
+    },
+    "defaultStatus": {
+      "model": "item-status"
     }
   }
 }

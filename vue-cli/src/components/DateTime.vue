@@ -3,20 +3,22 @@
 </template>
 
 <script>
+import { date, dateRaw } from '@/utils/utils'
+
 export default {
   name: 'DateTime',
   props: ['value'],
   data () {
     return {
-      raw: this.$options.filters.dateRaw(this.value),
-      formatted: this.$options.filters.date(this.value),
+      raw: dateRaw(this.value),
+      formatted: date(this.value),
       interval: null
     }
   },
   watch: {
     value: function (newValue) {
-      this.raw = this.$options.filters.dateRaw(newValue)
-      this.formatted = this.$options.filters.date(newValue)
+      this.raw = dateRaw(newValue)
+      this.formatted = date(newValue)
     }
   },
   created () {
@@ -27,7 +29,7 @@ export default {
     const randomInterval = Math.random() * (50 - 70) + 70
 
     this.interval = setInterval(() => {
-      this.formatted = this.$options.filters.date(this.value)
+      this.formatted = date(this.value)
     }, 1000 * randomInterval)
   },
   beforeDestroy () {

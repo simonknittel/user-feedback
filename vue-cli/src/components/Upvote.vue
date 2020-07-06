@@ -34,9 +34,9 @@ export default {
 
       string += this.active ? 'Click to remove your upvote' : 'Click to upvote'
 
-      if (this.upvotes && this.upvotes.length > 0) {
-        string += '\n\nUpvoted by ' + this.upvotes.map(upvote => upvote.username).join(', ')
-      }
+      // if (this.upvotes && this.upvotes.length > 0) {
+      //   string += '\n\nUpvoted by ' + this.upvotes.map(upvote => upvote.username).join(', ')
+      // }
 
       return string
     },
@@ -168,7 +168,7 @@ export default {
     color: #333;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: #eee;
 
     .dark & {

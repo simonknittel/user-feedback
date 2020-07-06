@@ -16,6 +16,9 @@
         {{ item.user.username }}
       </dd>
 
+      <dt>Upvoted by</dt>
+      <dd><UpvotesOverview :itemId="item.id" /></dd>
+
       <dt>Created at</dt>
       <dd><DateTime :value="item.created_at" /></dd>
 
@@ -73,13 +76,15 @@ import md5 from 'md5'
 import Status from '@/components/Status'
 import ChangeStatus from '@/components/ChangeStatus'
 import DateTime from '@/components/DateTime'
+import UpvotesOverview from '@/components/UpvotesOverview'
 
 export default {
   name: 'ItemViewSidebar',
   components: {
     Status,
     ChangeStatus,
-    DateTime
+    DateTime,
+    UpvotesOverview
   },
   props: {
     item: {
