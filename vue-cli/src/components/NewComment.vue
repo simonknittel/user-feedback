@@ -18,7 +18,7 @@
 
 <script>
 import NEW_COMMENT from '@/queries/NewComment.gql'
-import ITEM from '@/queries/Item.gql'
+import COMMENTS from '@/queries/Comments.gql'
 
 export default {
   name: 'NewComment',
@@ -45,14 +45,14 @@ export default {
         },
         update: (store, { data: { createComment } }) => {
           const query = {
-            query: ITEM,
-            variables: { id: this.$route.params.id }
+            query: COMMENTS,
+            variables: { where: { item: { id: this.$route.params.id } } }
           }
 
           const data = store.readQuery(query)
 
           // TODO: Update items updated_at as well
-          data.item.comments.push(createComment.comment)
+          data.comments.push(createComment.comment)
 
           store.writeQuery({ ...query, data })
         }

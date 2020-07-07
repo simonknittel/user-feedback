@@ -42,7 +42,7 @@
     <NewReply
       v-if="showReply === true"
       :itemId="$route.params.id"
-      :commentId="comment.id"
+      :parentId="comment.id"
       :hideReply="() => { showReply = false }"
     />
   </li>

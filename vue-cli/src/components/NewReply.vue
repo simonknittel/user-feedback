@@ -1,11 +1,11 @@
 <template>
   <form class="new-reply" @submit="submit">
-    <label class="new-reply__title" :for="'new_reply' + commentId">New reply</label>
+    <label class="new-reply__title" :for="'new_reply' + parentId">New reply</label>
     <textarea
       v-model="message"
       class="new-reply__input"
       name="message"
-      :id="'new_reply' + commentId"
+      :id="'new_reply' + parentId"
       rows="4"
       required
     ></textarea>
@@ -27,7 +27,7 @@ import COMMENTS from '@/queries/Comments.gql'
 
 export default {
   name: 'NewReply',
-  props: ['itemId', 'commentId', 'hideReply'],
+  props: ['itemId', 'parentId', 'hideReply'],
   data: function () {
     return {
       message: ''
@@ -43,7 +43,7 @@ export default {
           input: {
             data: {
               item: this.itemId,
-              parent: this.commentId,
+              parent: this.parentId,
               message: this.message
             }
           }
@@ -58,6 +58,9 @@ export default {
 
           // TODO: Update items updated_at as well
           data.comments.push(createComment.comment)
+          data.comments
+            .filter(comment => comment.id === this.parentId)[0]
+            .children.push(createComment.comment)
 
           store.writeQuery({ ...query, data })
         }
