@@ -40,7 +40,7 @@
       "
     >
       <!-- TODO: Add icon (pencil) -->
-      <button>Edit title, description or categories</button>
+      <!-- <button>Edit title, description or categories</button> -->
     </div>
 
     <div

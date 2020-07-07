@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <Login />
+    <Login v-if="$store.state.showLogin" />
+    <Signup v-if="$store.state.showSignup" />
 
     <router-view/>
   </div>
@@ -10,6 +11,7 @@
 <script>
 import Header from '@/components/Header'
 import Login from '@/components/Login'
+import Signup from '@/components/Signup'
 
 import SELF from '@/queries/Self.gql'
 
@@ -17,7 +19,8 @@ export default {
   name: 'App',
   components: {
     Header,
-    Login
+    Login,
+    Signup
   },
   computed: {
     darkMode: function () { return this.$store.state.darkMode }

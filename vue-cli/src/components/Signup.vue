@@ -1,43 +1,47 @@
 <template>
   <form
     @submit.prevent="submit"
-    class="login"
-    @click.self="$store.commit('toggleLogin', false)"
+    class="signup"
+    @click.self="$store.commit('toggleSignup', false)"
   >
-    <div class="login__inner">
-      <span class="login__title">Login</span>
+    <div class="signup__inner">
+      <span class="signup__title">Signup</span>
 
-      <label for="email">E-mail address or username</label>
-      <input v-model="identifier" id="email" name="email" type="email" required autocomplete="email">
+      <label for="username">Username</label>
+      <input v-model="username" id="username" name="username" type="username" required autocomplete="username">
+      <label for="email">E-mail address</label>
+      <input v-model="email" id="email" name="email" type="email" required autocomplete="email">
       <label for="password">Password</label>
       <input v-model="password" id="password" name="password" type="password" required autocomplete="current-password">
-      <button class="login__submit-button">Log in</button>
+      <button class="signup__submit-button">Sign up</button>
 
-      <button @click.prevent="showSignup" class="login__signup-button">Click here to sign up.</button>
+      <button @click.prevent="showLogin" class="signup__login-button">Already got an account?</button>
     </div>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Signup',
   data () {
     return {
-      identifier: '',
+      username: '',
+      email: '',
       password: ''
     }
   },
   methods: {
     submit () {
-      this.$store.dispatch('login', {
-        identifier: this.identifier,
+      this.$store.dispatch('signup', {
+        username: this.username,
+        email: this.email,
         password: this.password
       })
       this.password = ''
     },
-    showSignup () {
-      this.$store.commit('toggleLogin', false)
-      this.$store.commit('toggleSignup', true)
+    showLogin () {
+      this.$store.commit('toggleSignup', false)
+      this.$store.commit('toggleLogin', true)
     }
   }
 }
@@ -46,7 +50,7 @@ export default {
 <style lang="scss">
 @import '../variables.scss';
 
-.login {
+.signup {
   z-index: 1;
   position: fixed;
   left: 0;
@@ -122,7 +126,7 @@ export default {
     text-transform: uppercase;
   }
 
-  &__signup-button {
+  &__login-button {
     cursor: pointer;
     display: block;
     width: calc(100% + 4rem);
