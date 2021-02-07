@@ -10,6 +10,7 @@ defaults:
     working-directory: strapi
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
