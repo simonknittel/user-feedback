@@ -6651,7 +6651,7 @@ klona@^2.0.3:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
-knex@<0.22.0:
+knex@0.21.17:
   version "0.21.17"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.17.tgz#f99f5b90132b9bb9c6eb5c81f0a035e0232c870f"
   integrity sha512-kAt58lRwjzqwedApKF7luYPa7HsLb0oDiczwKrkZcekIzTmSow5YGK149S2C8HjH63R3NcOBo9+1rjvWnC1Paw==
@@ -10194,7 +10194,7 @@ sqreen-sdk@^0.8.1:
   dependencies:
     axios "^0.21.1"
 
-sqreen@^1.61.0:
+sqreen@1.61.0:
   version "1.61.0"
   resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.61.0.tgz#bb37cdc713bb1a7907f1e649f432b9117554c3fc"
   integrity sha512-lGrugXlKxUAfKZ3t0ftCdw5XvuyJyyAh0Ils9N/W2tHptd3xW56hWV+S5pifDpIiwE11IYz2sUTGszzXw7tzww==
