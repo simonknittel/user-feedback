@@ -17,7 +17,7 @@
     "remark-parse": "^8.0.2",
     "remark-rehype": "^7.0.0",
     "unified": "^9.2.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-apollo": "^3.0.5",
     "vue-router": "^3.2.0",
     "vuex": "^3.6.2"
@@ -41,7 +41,7 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-apollo": "~0.22.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
