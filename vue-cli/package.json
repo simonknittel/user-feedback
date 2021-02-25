@@ -16,7 +16,7 @@
     "rehype-stringify": "8.0.0",
     "remark-parse": "9.0.0",
     "remark-rehype": "8.0.0",
-    "unified": "9.2.0",
+    "unified": "9.2.1",
     "vue": "2.6.12",
     "vue-apollo": "3.0.7",
     "vue-router": "3.5.1",
