@@ -9,7 +9,7 @@
     "start": "npm run serve"
   },
   "dependencies": {
-    "core-js": "3.9.1",
+    "core-js": "3.10.0",
     "hast-util-sanitize": "3.0.2",
     "md5": "2.3.0",
     "rehype-sanitize": "4.0.0",
