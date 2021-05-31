@@ -14,16 +14,16 @@
     "knex": "0.95.6",
     "sqlite3": "latest",
     "sqreen": "1.62.0",
-    "strapi": "3.6.0",
+    "strapi": "3.6.2",
     "strapi-admin": "3.6.2",
-    "strapi-connector-bookshelf": "3.6.0",
+    "strapi-connector-bookshelf": "3.6.2",
     "strapi-plugin-content-manager": "3.6.2",
     "strapi-plugin-content-type-builder": "3.6.2",
-    "strapi-plugin-email": "3.6.0",
+    "strapi-plugin-email": "3.6.2",
     "strapi-plugin-graphql": "3.6.2",
     "strapi-plugin-upload": "3.6.2",
     "strapi-plugin-users-permissions": "3.6.2",
-    "strapi-utils": "3.6.0"
+    "strapi-utils": "3.6.2"
   },
   "author": {
     "name": "A Strapi developer"
