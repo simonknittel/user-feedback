@@ -10487,10 +10487,10 @@ std-env@^2.2.1:
   dependencies:
     ci-info "^1.6.0"
 
-strapi-admin@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/strapi-admin/-/strapi-admin-3.6.2.tgz#4fa8da02d461dec558ba4bd15c0f267e678fd5ee"
-  integrity sha512-dZN+++oSzJjAFByEZ+es9m17aZvk2jYPHp+2uxOM1K/fFDp48FpzOy8PVn9StIHmBdBMXC1X0dOncgdeuo35bg==
+strapi-admin@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-admin/-/strapi-admin-3.6.3.tgz#eaa18ebcf26c1f73d8c8214d15eb563aeac3b401"
+  integrity sha512-0a/5UGrCVJ49UDT6eZm4Y83BqgJrNvZzMhRME18/88gkmhY04zEqwWaUuptrv7hma+CTTVCjIIsYqTZV9caAqA==
   dependencies:
     "@babel/core" "^7.14.0"
     "@babel/plugin-proposal-async-generator-functions" "^7.13.15"
@@ -10579,8 +10579,8 @@ strapi-admin@3.6.2:
     sanitize.css "^4.1.0"
     semver "7.3.5"
     sift "13.5.0"
-    strapi-helper-plugin "3.6.2"
-    strapi-utils "3.6.2"
+    strapi-helper-plugin "3.6.3"
+    strapi-utils "3.6.3"
     style-loader "^0.23.1"
     styled-components "^5.2.3"
     terser-webpack-plugin "^1.2.3"
@@ -10590,7 +10590,7 @@ strapi-admin@3.6.2:
     webpack-cli "^3.3.12"
     webpack-dev-server "^3.11.2"
     webpackbar "^4.0.0"
-    yup "^0.27.0"
+    yup "^0.28.2"
 
 strapi-connector-bookshelf@3.6.2:
   version "3.6.2"
@@ -10625,6 +10625,15 @@ strapi-generate-api@3.6.2:
     lodash "4.17.21"
     pluralize "^8.0.0"
     strapi-utils "3.6.2"
+
+strapi-generate-api@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-generate-api/-/strapi-generate-api-3.6.3.tgz#2af594f2daf9e52b639001dff7c4ec03028ab307"
+  integrity sha512-VORX51utIMUvDFizFlwakyH2DwJWgzYkosyhkecVthwiCUBU0EI9KXaGdnFahGQ5IELKv1mBWFFrdjUjw/wELw==
+  dependencies:
+    lodash "4.17.21"
+    pluralize "^8.0.0"
+    strapi-utils "3.6.3"
 
 strapi-generate-controller@3.6.2:
   version "3.6.2"
@@ -10697,6 +10706,17 @@ strapi-generate@3.6.2:
     reportback "^2.0.2"
     strapi-utils "3.6.2"
 
+strapi-generate@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-generate/-/strapi-generate-3.6.3.tgz#9cf2c35a3450aee80d01f20a53458e9b9d9e05c1"
+  integrity sha512-X2KhezV0bTRZHZruqmH7oFQOxrGLRDKqobsyYD6VZE/KFPtYRZ3mUzymQE5rJJ+BOymi5xxdPFPr4uCa0Z54yQ==
+  dependencies:
+    async "^2.6.2"
+    fs-extra "^9.1.0"
+    lodash "4.17.21"
+    reportback "^2.0.2"
+    strapi-utils "3.6.3"
+
 strapi-helper-plugin@3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/strapi-helper-plugin/-/strapi-helper-plugin-3.6.2.tgz#ab46db4801da4e511f4c13a757de0d906032104a"
@@ -10729,10 +10749,42 @@ strapi-helper-plugin@3.6.2:
     styled-components "^5.2.3"
     whatwg-fetch "^3.6.2"
 
-strapi-plugin-content-manager@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-content-manager/-/strapi-plugin-content-manager-3.6.2.tgz#3ac0b3e9d63d8eeb97d41cba82e91c40562d4122"
-  integrity sha512-nE1oAWFTfkdpOk4FX8pibQzGdHuLPap7Y0GtDk9/UsIQo8Z5yrfnUIvrQvsVw9Vktxj6sdoGLLoU/MsKHI07uA==
+strapi-helper-plugin@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-helper-plugin/-/strapi-helper-plugin-3.6.3.tgz#ed8ac1d1c3bc345b9a30209f93be1a15c85fc4ea"
+  integrity sha512-f4/9NzzjtSfwBOC5J8sy66my92EbV1v8Pi5Ne3y4kFs7LiC6IBxHPX/sTT/FwxmR65yD5tx0kO10q5xkZ5KCiA==
+  dependencies:
+    "@buffetjs/core" "3.3.6"
+    "@buffetjs/custom" "3.3.6"
+    "@buffetjs/hooks" "3.3.6"
+    "@buffetjs/icons" "3.3.6"
+    "@buffetjs/styles" "3.3.6"
+    "@buffetjs/utils" "3.3.6"
+    "@fortawesome/fontawesome-free" "^5.15.2"
+    "@fortawesome/fontawesome-svg-core" "^1.2.35"
+    "@fortawesome/free-brands-svg-icons" "^5.15.2"
+    "@fortawesome/free-solid-svg-icons" "^5.15.3"
+    "@fortawesome/react-fontawesome" "^0.1.14"
+    bootstrap "^4.6.0"
+    classnames "^2.3.1"
+    immutable "^3.8.2"
+    invariant "^2.2.1"
+    lodash "4.17.21"
+    moment "^2.29.1"
+    react "^16.14.0"
+    react-dom "^16.9.0"
+    react-helmet "^6.1.0"
+    react-intl "4.5.0"
+    react-router "^5.2.0"
+    react-router-dom "^5.0.0"
+    reactstrap "8.4.1"
+    styled-components "^5.2.3"
+    whatwg-fetch "^3.6.2"
+
+strapi-plugin-content-manager@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-content-manager/-/strapi-plugin-content-manager-3.6.3.tgz#8e3a6124ae8c8abe95135d56fa1a5687d478e220"
+  integrity sha512-B4/ABfnc1ibxFTkTC5b7GWymS8MSpOwhLpUQeeXNQsvfSiJ+UeF/fZiB7j4kgO1byvG/8qTTuGUgmFH18quQ7w==
   dependencies:
     "@buffetjs/core" "3.3.6"
     "@buffetjs/custom" "3.3.6"
@@ -10770,14 +10822,14 @@ strapi-plugin-content-manager@3.6.2:
     redux-immutable "^4.0.0"
     reselect "^4.0.0"
     sanitize-html "2.3.3"
-    strapi-helper-plugin "3.6.2"
-    strapi-utils "3.6.2"
-    yup "^0.27.0"
+    strapi-helper-plugin "3.6.3"
+    strapi-utils "3.6.3"
+    yup "^0.28.2"
 
-strapi-plugin-content-type-builder@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-content-type-builder/-/strapi-plugin-content-type-builder-3.6.2.tgz#8f6fcf606f6f1ea08428f479a24b82cfb36d07da"
-  integrity sha512-gyiFlH8vJmwBtOJNfPhbwPIRhL6XTcUw3upJXkYInefbtLcSuNUADBbWc2XnOpbbxSkVdrvixrwwoe/s1W1KaQ==
+strapi-plugin-content-type-builder@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-content-type-builder/-/strapi-plugin-content-type-builder-3.6.3.tgz#430a66d45b97870b62b9e9a102c335cb90923da3"
+  integrity sha512-gy63BflDzLWzjqtI4MsUN//v2mun6kBflohm+mPwIQlSIODazQ4ukLg6SQHOualxtraKaZluaX2gi+K92c03nw==
   dependencies:
     "@buffetjs/core" "3.3.6"
     "@buffetjs/custom" "3.3.6"
@@ -10800,11 +10852,11 @@ strapi-plugin-content-type-builder@3.6.2:
     redux "^4.0.1"
     redux-immutable "^4.0.0"
     reselect "^4.0.0"
-    strapi-generate "3.6.2"
-    strapi-generate-api "3.6.2"
-    strapi-helper-plugin "3.6.2"
-    strapi-utils "3.6.2"
-    yup "^0.27.0"
+    strapi-generate "3.6.3"
+    strapi-generate-api "3.6.3"
+    strapi-helper-plugin "3.6.3"
+    strapi-utils "3.6.3"
+    yup "^0.28.2"
 
 strapi-plugin-email@3.6.2:
   version "3.6.2"
